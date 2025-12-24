@@ -11,7 +11,7 @@ export default {
         'mtm-primary': '#1ab1d2',
         'mtm-accent': '#f18f38',
         'mtm-navy': '#1c487b',
-        'mtm-soft-blue': '#85abbd',
+        'mtm-soft-blue': '#5a7a8f', // Darkened for WCAG AA compliance (was #85abbd)
         'mtm-cream': '#fef4e3',
         'mtm-white': '#fafdfe',
         // Rating Colors

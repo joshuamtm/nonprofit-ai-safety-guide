@@ -19,7 +19,16 @@ export default function ToolPage() {
   const [imgError, setImgError] = useState(false)
 
   useEffect(() => {
+    const abortController = new AbortController()
+
     async function fetchTool() {
+      // Guard check for Supabase client
+      if (!supabase) {
+        setError('Database connection not configured.')
+        setLoading(false)
+        return
+      }
+
       try {
         setLoading(true)
 
@@ -33,6 +42,7 @@ export default function ToolPage() {
           `)
           .eq('id', id)
           .single()
+          .abortSignal(abortController.signal)
 
         if (toolError) throw toolError
 
@@ -43,18 +53,22 @@ export default function ToolPage() {
             .from('evaluations')
             .select('*')
             .in('tool_tier_id', tierIds)
+            .abortSignal(abortController.signal)
 
           if (!evalError && evaluations) {
-            // Attach evaluations to their respective tiers
-            toolData.tiers = toolData.tiers.map((tier) => ({
+            // Attach evaluations to their respective tiers (immutable)
+            const tiersWithEvaluations = toolData.tiers.map((tier) => ({
               ...tier,
               evaluations: evaluations.filter((e) => e.tool_tier_id === tier.id),
             }))
+            setTool({ ...toolData, tiers: tiersWithEvaluations })
+            return
           }
         }
 
         setTool(toolData)
       } catch (err) {
+        if (err.name === 'AbortError') return
         console.error('Error fetching tool:', err)
         setError('Failed to load tool details.')
       } finally {
@@ -63,6 +77,8 @@ export default function ToolPage() {
     }
 
     fetchTool()
+
+    return () => abortController.abort()
   }, [id])
 
   if (loading) {

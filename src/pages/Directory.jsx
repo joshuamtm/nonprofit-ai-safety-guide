@@ -20,7 +20,16 @@ export default function Directory() {
 
   // Fetch tools from Supabase
   useEffect(() => {
+    const abortController = new AbortController()
+
     async function fetchTools() {
+      // Guard check for Supabase client
+      if (!supabase) {
+        setError('Database connection not configured.')
+        setLoading(false)
+        return
+      }
+
       try {
         setLoading(true)
         const { data, error: fetchError } = await supabase
@@ -30,6 +39,7 @@ export default function Directory() {
             tiers:tool_tiers(*)
           `)
           .order('name')
+          .abortSignal(abortController.signal)
 
         if (fetchError) throw fetchError
 
@@ -40,22 +50,23 @@ export default function Directory() {
             .from('evaluations')
             .select('*')
             .in('tool_tier_id', allTierIds)
+            .abortSignal(abortController.signal)
 
-          // Attach evaluations to their respective tiers
-          if (evaluations) {
-            data.forEach(tool => {
-              if (tool.tiers) {
-                tool.tiers = tool.tiers.map(tier => ({
-                  ...tier,
-                  evaluations: evaluations.filter(e => e.tool_tier_id === tier.id)
-                }))
-              }
-            })
-          }
+          // Attach evaluations to their respective tiers (immutable)
+          const toolsWithEvaluations = data.map(tool => ({
+            ...tool,
+            tiers: tool.tiers?.map(tier => ({
+              ...tier,
+              evaluations: evaluations?.filter(e => e.tool_tier_id === tier.id) || []
+            })) || []
+          }))
+
+          setTools(toolsWithEvaluations)
+        } else {
+          setTools(data || [])
         }
-
-        setTools(data || [])
       } catch (err) {
+        if (err.name === 'AbortError') return
         console.error('Error fetching tools:', err)
         setError('Failed to load tools. Please try again.')
       } finally {
@@ -64,6 +75,8 @@ export default function Directory() {
     }
 
     fetchTools()
+
+    return () => abortController.abort()
   }, [])
 
   // Filter tools based on current filters
@@ -129,10 +142,19 @@ export default function Directory() {
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold text-mtm-navy mb-2">AI Tools Directory</h1>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 mb-6">
             Browse our evaluated AI tools. Each tool is rated based on data privacy, security,
             and responsible AI practices.
           </p>
+
+          {/* Search Bar - Prominent in header */}
+          <div className="max-w-xl mb-6">
+            <SearchBar
+              value={searchQuery}
+              onChange={setSearchQuery}
+              placeholder="Search by tool name, vendor, or description..."
+            />
+          </div>
 
           {/* How to use this */}
           <button
@@ -210,14 +232,6 @@ export default function Directory() {
               </div>
 
               <div className="space-y-6">
-                <div>
-                  <SearchBar
-                    value={searchQuery}
-                    onChange={setSearchQuery}
-                    placeholder="Search tools..."
-                  />
-                </div>
-
                 <TierToggle selected={selectedTier} onChange={setSelectedTier} />
 
                 <CategoryFilter
