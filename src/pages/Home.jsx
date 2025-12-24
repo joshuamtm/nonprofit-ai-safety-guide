@@ -133,7 +133,7 @@ export default function Home() {
                 <div>
                   <h3 className="font-semibold text-gray-900">Recommended (24-30 points)</h3>
                   <p className="text-sm text-gray-600">
-                    Tools that meet our standards for data privacy, security, and responsible AI
+                    Tools that meet reasonable standards for data privacy, security, and responsible AI
                     practices. Safe for most nonprofit use cases.
                   </p>
                 </div>
