@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Loader2, ChevronDown, ChevronUp, HelpCircle } from 'lucide-react'
 import SearchBar from '../components/tools/SearchBar'
 import CategoryFilter from '../components/tools/CategoryFilter'
 import TierToggle from '../components/tools/TierToggle'
@@ -16,6 +16,7 @@ export default function Directory() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedTier, setSelectedTier] = useState(null)
+  const [showHelp, setShowHelp] = useState(false)
 
   // Fetch tools from Supabase
   useEffect(() => {
@@ -128,10 +129,66 @@ export default function Directory() {
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold text-mtm-navy mb-2">AI Tools Directory</h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 mb-4">
             Browse our evaluated AI tools. Each tool is rated based on data privacy, security,
             and responsible AI practices.
           </p>
+
+          {/* How to use this */}
+          <button
+            onClick={() => setShowHelp(!showHelp)}
+            className="flex items-center gap-2 text-sm text-mtm-primary hover:text-mtm-navy transition-colors"
+          >
+            <HelpCircle className="w-4 h-4" />
+            How to use this directory
+            {showHelp ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </button>
+
+          {showHelp && (
+            <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+                {/* Rating Guide */}
+                <div>
+                  <h3 className="font-semibold text-mtm-navy mb-2">Understanding Ratings</h3>
+                  <ul className="space-y-2 text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-recommended flex-shrink-0"></span>
+                      <span><strong>Recommended</strong> (24-30 pts): Safe for most nonprofit use cases with proper policies.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-caution flex-shrink-0"></span>
+                      <span><strong>Caution</strong> (16-23 pts): Usable with specific guardrails. Review concerns before adopting.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-not-recommended flex-shrink-0"></span>
+                      <span><strong>Not Recommended</strong> (0-15 pts): Significant concerns for nonprofit use.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Using Filters */}
+                <div>
+                  <h3 className="font-semibold text-mtm-navy mb-2">Using Filters</h3>
+                  <ul className="space-y-2 text-gray-600">
+                    <li><strong>Tier:</strong> Filter by pricing tier. "Free" shows tools with no-cost options; "Enterprise" shows tools with advanced security controls.</li>
+                    <li><strong>Category:</strong> Find tools for specific tasks like writing, images, or project management.</li>
+                    <li><strong>Search:</strong> Look up tools by name, vendor, or description.</li>
+                  </ul>
+                </div>
+
+                {/* Use Cases */}
+                <div>
+                  <h3 className="font-semibold text-mtm-navy mb-2">Common Use Cases</h3>
+                  <ul className="space-y-2 text-gray-600">
+                    <li><strong>Grant writing:</strong> Look for "writing" tools rated Recommended.</li>
+                    <li><strong>Board presentations:</strong> Check "images" + "productivity" categories.</li>
+                    <li><strong>Meeting notes:</strong> Filter by "communication" or search "transcription".</li>
+                    <li><strong>Sensitive data:</strong> Use Enterprise tier filter for strongest privacy controls.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
