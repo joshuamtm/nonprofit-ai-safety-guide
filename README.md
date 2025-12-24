@@ -88,7 +88,7 @@ src/
 
 ## Evaluation Criteria
 
-Tools are scored 0-3 on each criterion:
+Tools are scored 0-3 on each criterion, weighted and normalized to a 0-100 scale:
 
 | Criterion | Weight | Description |
 |-----------|--------|-------------|
@@ -100,11 +100,12 @@ Tools are scored 0-3 on each criterion:
 | Environmental | 1x | Carbon footprint, sustainability |
 | Ethical Training | 1x | Training data transparency, bias mitigation |
 | Enterprise Controls | 1x | Admin console, SSO, compliance tools |
+| Sector Commitment | 1x | Vendor's nonprofit sector commitment, TechSoup partnership |
 
-**Rating Thresholds:**
-- ✅ **Approved** (24-30 points): Safe for most nonprofit use cases
-- ⚠️ **Caution** (16-23 points): Review specific concerns before using
-- ❌ **Not Recommended** (0-15 points): Significant concerns, avoid for organizational use
+**Rating Thresholds (0-100 scale):**
+- ✅ **Recommended** (75-100): Safe for most nonprofit use cases
+- ⚠️ **Caution** (50-74): Review specific concerns before using
+- ❌ **Not Recommended** (0-49): Significant concerns, avoid for organizational use
 
 ## Contributing
 

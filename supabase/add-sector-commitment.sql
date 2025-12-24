@@ -1,120 +1,164 @@
 -- Add Sector Commitment evaluations for all tool tiers
--- Based on research: AI Sector Commitment Research Brief, Vendor Nonprofit Commitment Scores,
--- and Sector Commitment Scoring Framework
+-- Uses dynamic lookups to find correct tool_tier IDs
+-- Based on research: AI Sector Commitment Research Brief, Vendor Nonprofit Commitment Scores
 
 -- Scoring Guide:
--- 3 = Sector Leader: Transformational commitment with 5+ year track record, dedicated teams, deep TechSoup/NTEN integration
--- 2 = Committed Partner: Material investment with active programs, sector partnerships, genuine engagement
--- 1 = Aware but Limited: Performative or transactional engagement, generic discounts, crisis-timed announcements
--- 0 = No Commitment: No nonprofit programs, discontinued support, or regressive policies
+-- 3 = Sector Leader: Transformational commitment with 5+ year track record
+-- 2 = Committed Partner: Material investment with active programs
+-- 1 = Aware but Limited: Performative or transactional engagement
+-- 0 = No Commitment: No nonprofit programs or discontinued support
 
 -- ===========================================
 -- ChatGPT (OpenAI) - Score: 1
--- Crisis-timed nonprofit initiatives, grantwashing concerns, limited sector integration
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('11111111-1111-1111-1111-111111111112', 'sector_commitment', 1, 'OpenAI for Nonprofits announced post-layoffs (Jan 2024). Crisis-timed initiative with limited track record. No TechSoup partnership.'),
-('11111111-1111-1111-1111-111111111113', 'sector_commitment', 1, 'Same crisis-timed nonprofit program. Generic API credits without sector expertise.'),
-('11111111-1111-1111-1111-111111111114', 'sector_commitment', 1, 'Enterprise tier has same limited nonprofit commitment. No dedicated nonprofit team.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 1, 'OpenAI for Nonprofits announced post-layoffs (Jan 2024). Crisis-timed initiative with limited track record. No TechSoup partnership.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'ChatGPT'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
 -- Claude (Anthropic) - Score: 2
--- New but substantive program, genuine commitment indicators, growing sector engagement
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('22222222-2222-2222-2222-222222222223', 'sector_commitment', 2, 'Anthropic shows genuine nonprofit interest with Claude for Good initiative. New but substantive engagement.'),
-('22222222-2222-2222-2222-222222222224', 'sector_commitment', 2, 'Active nonprofit community engagement. Growing TechSoup relationship. Not crisis-timed.'),
-('22222222-2222-2222-2222-222222222225', 'sector_commitment', 2, 'Team tier includes nonprofit-friendly pricing. Building sector expertise.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 2, 'Anthropic shows genuine nonprofit interest with Claude for Good initiative. New but substantive engagement. Growing TechSoup relationship.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Claude'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
 -- Microsoft Copilot - Score: 3
--- 20+ year track record, TechSoup validated, dedicated nonprofit teams, sector leader
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('33333333-3333-3333-3333-333333333334', 'sector_commitment', 3, 'Microsoft has 20+ year nonprofit commitment. Tech for Social Impact division. Deep TechSoup integration.'),
-('33333333-3333-3333-3333-333333333335', 'sector_commitment', 3, 'Microsoft 365 for Nonprofits is gold standard. Dedicated nonprofit team, NTEN presence, sector-specific features.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 3, 'Microsoft has 20+ year nonprofit commitment. Tech for Social Impact division. Deep TechSoup integration. NTEN presence.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Microsoft Copilot'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
 -- Gemini (Google) - Score: 3
--- 22+ years of nonprofit support, Google for Nonprofits, sector leader
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('44444444-4444-4444-4444-444444444445', 'sector_commitment', 3, 'Google for Nonprofits since 2003 (22+ years). Deep TechSoup partnership. Dedicated nonprofit team.'),
-('44444444-4444-4444-4444-444444444446', 'sector_commitment', 3, 'Same sector-leading commitment. Google.org extends AI tools to nonprofits.'),
-('44444444-4444-4444-4444-444444444447', 'sector_commitment', 3, 'Workspace for Nonprofits is comprehensive. Long-term sector investment with measurable outcomes.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 3, 'Google for Nonprofits since 2003 (22+ years). Deep TechSoup partnership. Dedicated nonprofit team. Google.org AI initiatives.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Gemini'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
 -- Perplexity - Score: 1
--- Limited nonprofit programs, no sector expertise
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('55555555-5555-5555-5555-555555555556', 'sector_commitment', 1, 'No formal nonprofit program. Limited sector awareness.'),
-('55555555-5555-5555-5555-555555555557', 'sector_commitment', 1, 'Pro tier has no nonprofit discount or sector-specific features.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 1, 'No formal nonprofit program. Limited sector awareness. No TechSoup partnership.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Perplexity'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
--- Canva - Score: 3
--- 100% free for nonprofits, deep sector commitment, TechSoup validated
+-- Canva - Score: 3 for Nonprofits tier, 2 for others
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('66666666-6666-6666-6666-666666666667', 'sector_commitment', 2, 'Free tier available to all. Canva for Nonprofits program shows commitment.'),
-('66666666-6666-6666-6666-666666666668', 'sector_commitment', 3, 'Strong nonprofit program but requires verification.'),
-('66666666-6666-6666-6666-666666666669', 'sector_commitment', 3, '100% free Canva Pro for verified nonprofits. TechSoup validated. Dedicated nonprofit resources and templates.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment',
+  CASE WHEN tt.tier_name = 'Nonprofits' THEN 3 ELSE 2 END,
+  CASE WHEN tt.tier_name = 'Nonprofits'
+    THEN '100% free Canva Pro for verified nonprofits. TechSoup validated. Dedicated nonprofit resources and templates.'
+    ELSE 'Canva for Nonprofits program shows commitment. TechSoup partnership available.'
+  END
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Canva'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
 -- Grammarly - Score: 0
--- Discontinued nonprofit program, regressive policies
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('77777777-7777-7777-7777-777777777778', 'sector_commitment', 0, 'Grammarly discontinued their nonprofit program. No current sector support.'),
-('77777777-7777-7777-7777-777777777779', 'sector_commitment', 0, 'No nonprofit discount available. Program was discontinued.'),
-('77777777-7777-7777-7777-77777777777a', 'sector_commitment', 0, 'Business tier has no nonprofit pricing. Regressive change from prior support.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 0, 'Grammarly discontinued their nonprofit program. No current sector support. Regressive change from prior support.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Grammarly'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
 -- Otter.ai - Score: 1
--- Limited nonprofit focus, basic discounts only
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('88888888-8888-8888-8888-888888888889', 'sector_commitment', 1, 'Limited nonprofit awareness. No dedicated program.'),
-('88888888-8888-8888-8888-88888888888a', 'sector_commitment', 1, 'Some nonprofit users but no formal program or sector expertise.'),
-('88888888-8888-8888-8888-88888888888b', 'sector_commitment', 1, 'Business tier may offer case-by-case discounts but no formal program.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 1, 'Limited nonprofit awareness. No dedicated program. Case-by-case discounts only.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Otter.ai'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
 -- Notion AI - Score: 2
--- Active nonprofit program, growing sector engagement
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('99999999-9999-9999-9999-99999999999a', 'sector_commitment', 2, 'Notion for Nonprofits offers discounted pricing. Growing sector presence.'),
-('99999999-9999-9999-9999-99999999999b', 'sector_commitment', 2, 'Business tier has nonprofit pricing through application process.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 2, 'Notion for Nonprofits offers discounted pricing. Growing sector presence and engagement.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Notion AI'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
 -- Zoom AI Companion - Score: 2
--- Good nonprofit pricing, sector engagement
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab', 'sector_commitment', 2, 'Zoom for Nonprofits program with discounted pricing. Active sector engagement.'),
-('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac', 'sector_commitment', 2, 'Business tier includes nonprofit pricing. TechSoup partnership for discounts.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 2, 'Zoom for Nonprofits program with discounted pricing. Active sector engagement. TechSoup partnership.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Zoom AI Companion'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
 -- Midjourney - Score: 0
--- No nonprofit programs, no sector awareness
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbc', 'sector_commitment', 0, 'No nonprofit program or pricing. No sector awareness.'),
-('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbd', 'sector_commitment', 0, 'Pro tier has no nonprofit considerations. Discord-based with no organizational features.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 0, 'No nonprofit program or pricing. No sector awareness. Discord-based with no organizational features.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Midjourney'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
 -- DALL-E (OpenAI) - Score: 1
--- Same OpenAI concerns, crisis-timed initiatives
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('cccccccc-cccc-cccc-cccc-cccccccccccd', 'sector_commitment', 1, 'OpenAI for Nonprofits applies but with limited track record and crisis-timed launch.'),
-('cccccccc-cccc-cccc-cccc-ccccccccccce', 'sector_commitment', 1, 'ChatGPT Plus access shares same limited nonprofit commitment.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 1, 'OpenAI for Nonprofits applies but with limited track record and crisis-timed launch.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'DALL-E'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
 
 -- ===========================================
 -- Fathom - Score: 2
--- Good value for nonprofits, emerging commitment
 -- ===========================================
-INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
-('dddddddd-dddd-dddd-dddd-dddddddddde1', 'sector_commitment', 2, 'Generous free tier benefits nonprofits. Growing awareness of sector needs.'),
-('dddddddd-dddd-dddd-dddd-dddddddddde2', 'sector_commitment', 2, 'Reasonable pricing accessible to nonprofits. No formal program but good value.'),
-('dddddddd-dddd-dddd-dddd-dddddddddde3', 'sector_commitment', 2, 'Pro features at nonprofit-friendly pricing. Emerging sector commitment.');
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 2, 'Generous free tier benefits nonprofits. Reasonable pricing accessible to sector. Growing awareness of nonprofit needs.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Fathom'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
+
+-- ===========================================
+-- Google NotebookLM - Score: 3
+-- ===========================================
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 3, 'Part of Google for Nonprofits ecosystem (22+ years). Free for all users. Deep TechSoup integration through Google.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Google NotebookLM'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');
+
+-- ===========================================
+-- Asana (if exists) - Score: 2
+-- ===========================================
+INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes)
+SELECT tt.id, 'sector_commitment', 2, 'Asana for Nonprofits program with 50% discount. Active nonprofit community engagement.'
+FROM tool_tiers tt
+JOIN tools t ON tt.tool_id = t.id
+WHERE t.name = 'Asana'
+AND NOT EXISTS (SELECT 1 FROM evaluations e WHERE e.tool_tier_id = tt.id AND e.criteria_key = 'sector_commitment');

@@ -292,7 +292,7 @@ export default function ToolPage() {
                 <div>
                   <h3 className="font-semibold text-mtm-navy mb-1">How We Score</h3>
                   <p className="text-sm text-gray-600 mb-3">
-                    Tools are evaluated on 8 criteria (30 points max) with extra weight on data privacy and security.
+                    Tools are evaluated on 9 weighted criteria to produce a score out of 100. Data privacy and security carry 2x weight.
                   </p>
                   <Link
                     to="/methodology"

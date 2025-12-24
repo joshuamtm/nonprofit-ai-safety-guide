@@ -221,7 +221,7 @@ export default function Directory() {
                   Learn about our evaluation methodology
                 </Link>
                 <p className="text-xs text-gray-500 mt-1">
-                  See exactly how we score each tool across 8 criteria including data privacy, security, and more.
+                  See exactly how we score each tool across 9 weighted criteria including data privacy, security, and more.
                 </p>
               </div>
             </div>
