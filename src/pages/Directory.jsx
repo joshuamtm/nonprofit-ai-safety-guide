@@ -32,6 +32,27 @@ export default function Directory() {
 
         if (fetchError) throw fetchError
 
+        // Fetch evaluations for all tiers
+        if (data && data.length > 0) {
+          const allTierIds = data.flatMap(tool => tool.tiers?.map(t => t.id) || [])
+          const { data: evaluations } = await supabase
+            .from('evaluations')
+            .select('*')
+            .in('tool_tier_id', allTierIds)
+
+          // Attach evaluations to their respective tiers
+          if (evaluations) {
+            data.forEach(tool => {
+              if (tool.tiers) {
+                tool.tiers = tool.tiers.map(tier => ({
+                  ...tier,
+                  evaluations: evaluations.filter(e => e.tool_tier_id === tier.id)
+                }))
+              }
+            })
+          }
+        }
+
         setTools(data || [])
       } catch (err) {
         console.error('Error fetching tools:', err)

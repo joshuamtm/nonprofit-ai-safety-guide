@@ -4,11 +4,14 @@ import { ExternalLink } from 'lucide-react'
 import Card from '../ui/Card'
 import Badge from '../ui/Badge'
 import RatingBadge from './RatingBadge'
-import { formatDate } from '../../lib/utils'
+import { formatDate, calculateOverallScore } from '../../lib/utils'
 
 export default function ToolCard({ tool, tier }) {
   const displayTier = tier || tool.tiers?.[0]
   const [imgError, setImgError] = useState(false)
+
+  // Calculate the weighted score from evaluations
+  const score = displayTier?.evaluations ? calculateOverallScore(displayTier.evaluations) : null
 
   const LetterAvatar = () => (
     <div className="w-12 h-12 rounded-lg bg-mtm-primary/10 flex items-center justify-center">
@@ -47,9 +50,16 @@ export default function ToolCard({ tool, tier }) {
             )}
           </div>
         </div>
-        {displayTier && (
-          <RatingBadge rating={displayTier.overall_rating} size="sm" />
-        )}
+        <div className="flex flex-col items-end gap-1">
+          {displayTier && (
+            <RatingBadge rating={displayTier.overall_rating} size="sm" />
+          )}
+          {score !== null && (
+            <span className="text-xs font-medium text-gray-500">
+              {score}/30
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Description */}
