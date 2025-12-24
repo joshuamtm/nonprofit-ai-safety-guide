@@ -8,7 +8,7 @@ INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categor
 INSERT INTO tool_tiers (id, tool_id, tier_name, overall_rating, rating_notes, data_training_policy, requires_contract, soc2_certified, fedramp_status) VALUES
   ('11111111-1111-1111-1111-111111111112', '11111111-1111-1111-1111-111111111111', 'Free', 'caution', 'Free tier uses conversations for model training. Suitable for non-sensitive public content only.', 'yes', FALSE, FALSE, NULL),
   ('11111111-1111-1111-1111-111111111113', '11111111-1111-1111-1111-111111111111', 'Plus', 'caution', 'Plus tier still uses data for training by default but offers opt-out in settings.', 'opt-out', FALSE, FALSE, NULL),
-  ('11111111-1111-1111-1111-111111111114', '11111111-1111-1111-1111-111111111111', 'Enterprise', 'approved', 'Enterprise tier does not train on customer data, includes SSO, and provides SOC 2 compliance.', 'no', TRUE, TRUE, NULL);
+  ('11111111-1111-1111-1111-111111111114', '11111111-1111-1111-1111-111111111111', 'Enterprise', 'recommended', 'Enterprise tier does not train on customer data, includes SSO, and provides SOC 2 compliance.', 'no', TRUE, TRUE, NULL);
 
 -- ChatGPT Free tier evaluations
 INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
@@ -38,8 +38,8 @@ INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categor
 
 INSERT INTO tool_tiers (id, tool_id, tier_name, overall_rating, rating_notes, data_training_policy, requires_contract, soc2_certified, fedramp_status) VALUES
   ('22222222-2222-2222-2222-222222222223', '22222222-2222-2222-2222-222222222222', 'Free', 'caution', 'Free tier has usage limits but does not train on conversations by default.', 'no', FALSE, FALSE, NULL),
-  ('22222222-2222-2222-2222-222222222224', '22222222-2222-2222-2222-222222222222', 'Pro', 'approved', 'Pro tier offers enhanced features without training on user data.', 'no', FALSE, TRUE, NULL),
-  ('22222222-2222-2222-2222-222222222225', '22222222-2222-2222-2222-222222222222', 'Team', 'approved', 'Team tier includes admin controls, SSO, and data processing agreements.', 'no', TRUE, TRUE, NULL);
+  ('22222222-2222-2222-2222-222222222224', '22222222-2222-2222-2222-222222222222', 'Pro', 'recommended', 'Pro tier offers enhanced features without training on user data.', 'no', FALSE, TRUE, NULL),
+  ('22222222-2222-2222-2222-222222222225', '22222222-2222-2222-2222-222222222222', 'Team', 'recommended', 'Team tier includes admin controls, SSO, and data processing agreements.', 'no', TRUE, TRUE, NULL);
 
 -- Claude Pro evaluations
 INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
@@ -58,7 +58,7 @@ INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categor
 
 INSERT INTO tool_tiers (id, tool_id, tier_name, overall_rating, rating_notes, data_training_policy, requires_contract, soc2_certified, fedramp_status) VALUES
   ('33333333-3333-3333-3333-333333333334', '33333333-3333-3333-3333-333333333333', 'Free', 'caution', 'Free web version with limited Microsoft 365 integration.', 'opt-out', FALSE, FALSE, NULL),
-  ('33333333-3333-3333-3333-333333333335', '33333333-3333-3333-3333-333333333333', 'Microsoft 365', 'approved', 'Full integration with M365 apps, enterprise data protection.', 'no', TRUE, TRUE, 'authorized_moderate');
+  ('33333333-3333-3333-3333-333333333335', '33333333-3333-3333-3333-333333333333', 'Microsoft 365', 'recommended', 'Full integration with M365 apps, enterprise data protection.', 'no', TRUE, TRUE, 'authorized_moderate');
 
 -- Microsoft Copilot M365 evaluations
 INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
@@ -78,7 +78,7 @@ INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categor
 INSERT INTO tool_tiers (id, tool_id, tier_name, overall_rating, rating_notes, data_training_policy, requires_contract, soc2_certified, fedramp_status) VALUES
   ('44444444-4444-4444-4444-444444444445', '44444444-4444-4444-4444-444444444444', 'Free', 'caution', 'Free tier may use conversations for improvement. Review privacy settings.', 'opt-out', FALSE, FALSE, NULL),
   ('44444444-4444-4444-4444-444444444446', '44444444-4444-4444-4444-444444444444', 'Advanced', 'caution', 'Advanced tier with more features but similar data policies.', 'opt-out', FALSE, FALSE, NULL),
-  ('44444444-4444-4444-4444-444444444447', '44444444-4444-4444-4444-444444444444', 'Workspace', 'approved', 'Enterprise controls with Google Workspace integration.', 'no', TRUE, TRUE, 'authorized_moderate');
+  ('44444444-4444-4444-4444-444444444447', '44444444-4444-4444-4444-444444444444', 'Workspace', 'recommended', 'Enterprise controls with Google Workspace integration.', 'no', TRUE, TRUE, 'authorized_moderate');
 
 -- Perplexity
 INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categories) VALUES
@@ -94,8 +94,8 @@ INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categor
 
 INSERT INTO tool_tiers (id, tool_id, tier_name, overall_rating, rating_notes, data_training_policy, requires_contract, soc2_certified, fedramp_status) VALUES
   ('66666666-6666-6666-6666-666666666667', '66666666-6666-6666-6666-666666666666', 'Free', 'caution', 'Free tier with limited AI features. Review content ownership terms.', 'opt-out', FALSE, FALSE, NULL),
-  ('66666666-6666-6666-6666-666666666668', '66666666-6666-6666-6666-666666666666', 'Pro', 'approved', 'Full AI features with better content rights.', 'opt-out', FALSE, TRUE, NULL),
-  ('66666666-6666-6666-6666-666666666669', '66666666-6666-6666-6666-666666666666', 'Nonprofits', 'approved', 'Free Canva Pro for eligible nonprofits through Canva for Nonprofits program.', 'opt-out', FALSE, TRUE, NULL);
+  ('66666666-6666-6666-6666-666666666668', '66666666-6666-6666-6666-666666666666', 'Pro', 'recommended', 'Full AI features with better content rights.', 'opt-out', FALSE, TRUE, NULL),
+  ('66666666-6666-6666-6666-666666666669', '66666666-6666-6666-6666-666666666666', 'Nonprofits', 'recommended', 'Free Canva Pro for eligible nonprofits through Canva for Nonprofits program.', 'opt-out', FALSE, TRUE, NULL);
 
 -- Grammarly
 INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categories) VALUES
@@ -104,7 +104,7 @@ INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categor
 INSERT INTO tool_tiers (id, tool_id, tier_name, overall_rating, rating_notes, data_training_policy, requires_contract, soc2_certified, fedramp_status) VALUES
   ('77777777-7777-7777-7777-777777777778', '77777777-7777-7777-7777-777777777777', 'Free', 'caution', 'Basic corrections only. Review data practices carefully.', 'opt-out', FALSE, FALSE, NULL),
   ('77777777-7777-7777-7777-777777777779', '77777777-7777-7777-7777-777777777777', 'Premium', 'caution', 'Enhanced features but consumer-focused data practices.', 'opt-out', FALSE, FALSE, NULL),
-  ('77777777-7777-7777-7777-77777777777a', '77777777-7777-7777-7777-777777777777', 'Business', 'approved', 'Admin controls, team management, improved data protection.', 'no', TRUE, TRUE, NULL);
+  ('77777777-7777-7777-7777-77777777777a', '77777777-7777-7777-7777-777777777777', 'Business', 'recommended', 'Admin controls, team management, improved data protection.', 'no', TRUE, TRUE, NULL);
 
 -- Otter.ai
 INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categories) VALUES
@@ -113,7 +113,7 @@ INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categor
 INSERT INTO tool_tiers (id, tool_id, tier_name, overall_rating, rating_notes, data_training_policy, requires_contract, soc2_certified, fedramp_status) VALUES
   ('88888888-8888-8888-8888-888888888889', '88888888-8888-8888-8888-888888888888', 'Free', 'not_recommended', 'Free tier has significant data sharing for training purposes.', 'yes', FALSE, FALSE, NULL),
   ('88888888-8888-8888-8888-88888888888a', '88888888-8888-8888-8888-888888888888', 'Pro', 'caution', 'More features but review data practices.', 'opt-out', FALSE, FALSE, NULL),
-  ('88888888-8888-8888-8888-88888888888b', '88888888-8888-8888-8888-888888888888', 'Business', 'approved', 'Enterprise controls and data protection available.', 'no', TRUE, TRUE, NULL);
+  ('88888888-8888-8888-8888-88888888888b', '88888888-8888-8888-8888-888888888888', 'Business', 'recommended', 'Enterprise controls and data protection available.', 'no', TRUE, TRUE, NULL);
 
 -- Otter.ai Free tier evaluations (showing "Not Recommended" example)
 INSERT INTO evaluations (tool_tier_id, criteria_key, rating, notes) VALUES
@@ -132,7 +132,7 @@ INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categor
 
 INSERT INTO tool_tiers (id, tool_id, tier_name, overall_rating, rating_notes, data_training_policy, requires_contract, soc2_certified, fedramp_status) VALUES
   ('99999999-9999-9999-9999-99999999999a', '99999999-9999-9999-9999-999999999999', 'Plus', 'caution', 'AI add-on for Notion. Review data practices.', 'opt-out', FALSE, TRUE, NULL),
-  ('99999999-9999-9999-9999-99999999999b', '99999999-9999-9999-9999-999999999999', 'Business', 'approved', 'Enhanced admin controls and data protection.', 'no', TRUE, TRUE, NULL);
+  ('99999999-9999-9999-9999-99999999999b', '99999999-9999-9999-9999-999999999999', 'Business', 'recommended', 'Enhanced admin controls and data protection.', 'no', TRUE, TRUE, NULL);
 
 -- Zoom AI Companion
 INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categories) VALUES
@@ -140,7 +140,7 @@ INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categor
 
 INSERT INTO tool_tiers (id, tool_id, tier_name, overall_rating, rating_notes, data_training_policy, requires_contract, soc2_certified, fedramp_status) VALUES
   ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Pro', 'caution', 'Review AI data usage settings carefully.', 'opt-out', FALSE, TRUE, NULL),
-  ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Business', 'approved', 'Enterprise controls with opt-out from AI training.', 'no', TRUE, TRUE, 'authorized_moderate');
+  ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Business', 'recommended', 'Enterprise controls with opt-out from AI training.', 'no', TRUE, TRUE, 'authorized_moderate');
 
 -- Midjourney (example of more cautious rating)
 INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categories) VALUES

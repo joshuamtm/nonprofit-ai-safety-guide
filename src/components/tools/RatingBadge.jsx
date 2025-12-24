@@ -2,12 +2,12 @@ import { CheckCircle2, AlertTriangle, XCircle, Clock } from 'lucide-react'
 import { cn } from '../../lib/utils'
 
 const ratingConfig = {
-  approved: {
-    label: 'Approved',
+  recommended: {
+    label: 'Recommended',
     icon: CheckCircle2,
-    bgColor: 'bg-rating-approved/10',
-    textColor: 'text-rating-approved',
-    borderColor: 'border-rating-approved',
+    bgColor: 'bg-rating-recommended/10',
+    textColor: 'text-rating-recommended',
+    borderColor: 'border-rating-recommended',
   },
   caution: {
     label: 'Caution',

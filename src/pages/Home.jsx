@@ -15,7 +15,7 @@ const FEATURES = [
     icon: Search,
     title: 'Easy-to-Understand Ratings',
     description:
-      'Clear Approved, Caution, and Not Recommended ratings help you make quick decisions about which tools are safe to use.',
+      'Clear Recommended, Caution, and Not Recommended ratings help you make quick decisions about which tools are safe to use.',
   },
   {
     icon: FileText,
@@ -54,7 +54,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/directory">
-                <Button size="lg" className="bg-white text-mtm-navy hover:bg-gray-100 w-full sm:w-auto">
+                <Button size="lg" variant="ghost" className="bg-white !text-mtm-navy hover:bg-gray-100 w-full sm:w-auto">
                   Browse Tools
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
@@ -126,12 +126,12 @@ export default function Home() {
             </h2>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-4 p-4 bg-rating-approved/10 rounded-mtm-lg border border-rating-approved/30">
-                <div className="w-8 h-8 bg-rating-approved rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="flex items-start gap-4 p-4 bg-rating-recommended/10 rounded-mtm-lg border border-rating-recommended/30">
+                <div className="w-8 h-8 bg-rating-recommended rounded-full flex items-center justify-center flex-shrink-0">
                   <CheckCircle className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Approved (24-30 points)</h3>
+                  <h3 className="font-semibold text-gray-900">Recommended (24-30 points)</h3>
                   <p className="text-sm text-gray-600">
                     Tools that meet our standards for data privacy, security, and responsible AI
                     practices. Safe for most nonprofit use cases.

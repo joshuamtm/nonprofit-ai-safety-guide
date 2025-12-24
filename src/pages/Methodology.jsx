@@ -203,8 +203,8 @@ export default function Methodology() {
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <span className="w-28 text-sm font-medium">24-30 points:</span>
-                <span className="px-3 py-1 bg-rating-approved text-white rounded-full text-sm font-medium">
-                  Approved
+                <span className="px-3 py-1 bg-rating-recommended text-white rounded-full text-sm font-medium">
+                  Recommended
                 </span>
               </div>
               <div className="flex items-center gap-3">

@@ -9,7 +9,7 @@ export default function CriteriaScore({ label, score, maxScore = 3, notes, weigh
     if (score === 0) return 'bg-rating-not-recommended'
     if (score === 1) return 'bg-rating-caution'
     if (score === 2) return 'bg-mtm-primary'
-    return 'bg-rating-approved'
+    return 'bg-rating-recommended'
   }
 
   return (

@@ -15,7 +15,7 @@ export default {
         'mtm-cream': '#fef4e3',
         'mtm-white': '#fafdfe',
         // Rating Colors
-        'rating-approved': '#22c55e',
+        'rating-recommended': '#22c55e',
         'rating-caution': '#f59e0b',
         'rating-not-recommended': '#ef4444',
         'rating-under-review': '#6b7280',

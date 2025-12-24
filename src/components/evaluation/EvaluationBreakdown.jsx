@@ -38,7 +38,7 @@ export default function EvaluationBreakdown({ evaluations = [] }) {
           <div
             className={`h-full rounded-full ${
               totalScore >= 24
-                ? 'bg-rating-approved'
+                ? 'bg-rating-recommended'
                 : totalScore >= 16
                 ? 'bg-rating-caution'
                 : 'bg-rating-not-recommended'

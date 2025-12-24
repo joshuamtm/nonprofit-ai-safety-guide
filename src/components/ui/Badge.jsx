@@ -4,7 +4,7 @@ const variants = {
   default: 'bg-gray-100 text-gray-700',
   primary: 'bg-mtm-primary/10 text-mtm-primary',
   accent: 'bg-mtm-accent/10 text-mtm-accent',
-  approved: 'bg-rating-approved/10 text-rating-approved',
+  recommended: 'bg-rating-recommended/10 text-rating-recommended',
   caution: 'bg-rating-caution/10 text-rating-caution',
   'not-recommended': 'bg-rating-not-recommended/10 text-rating-not-recommended',
   'under-review': 'bg-rating-under-review/10 text-rating-under-review',
