@@ -32,7 +32,7 @@ const FEATURES = [
 ]
 
 const STATS = [
-  { value: '50+', label: 'Tools Evaluated' },
+  { value: '13', label: 'Tools Evaluated' },
   { value: '8', label: 'Evaluation Criteria' },
   { value: '3', label: 'Tier Levels' },
 ]
