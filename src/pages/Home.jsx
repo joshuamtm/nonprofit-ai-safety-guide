@@ -52,23 +52,12 @@ export default function Home() {
               safety, privacy, and responsibility. Make informed decisions about which AI tools
               are right for your organization.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/directory">
-                <Button size="lg" variant="ghost" className="bg-white !text-mtm-navy hover:bg-gray-100 w-full sm:w-auto">
-                  Browse Tools
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-              <Link to="/policy-generator">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white/10 w-full sm:w-auto"
-                >
-                  Generate AI Policy
-                </Button>
-              </Link>
-            </div>
+            <Link to="/directory">
+              <Button size="lg" variant="ghost" className="bg-white !text-mtm-navy hover:bg-gray-100">
+                Browse Tools
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
