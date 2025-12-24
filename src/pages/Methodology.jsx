@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Shield, Lock, FileText, Accessibility, DollarSign, Leaf, Brain, Building2 } from 'lucide-react'
+import { ArrowRight, Shield, Lock, FileText, Accessibility, DollarSign, Leaf, Brain, Building2, Search, Users, BadgeCheck, AlertCircle } from 'lucide-react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import { CRITERIA_WEIGHTS } from '../lib/utils'
@@ -332,6 +332,134 @@ export default function Methodology() {
                 </span>
               </li>
             </ul>
+          </Card>
+        </section>
+
+        {/* How We Gather Information */}
+        <section className="mt-16">
+          <Card className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-mtm-navy mb-4">
+              How We Gather Information
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Our evaluations are based on manual research of publicly available documentation.
+              We do not receive compensation from vendors—evaluations reflect our independent
+              assessment at the time of review.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="p-4 bg-gray-50 rounded-lg">
+                <div className="flex items-center gap-2 mb-3">
+                  <Search className="w-5 h-5 text-mtm-primary" />
+                  <h3 className="font-semibold text-mtm-navy">Primary Sources</h3>
+                </div>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-mtm-primary rounded-full mt-2 flex-shrink-0" />
+                    Official privacy policies and terms of service
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-mtm-primary rounded-full mt-2 flex-shrink-0" />
+                    Security documentation and SOC 2 reports
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-mtm-primary rounded-full mt-2 flex-shrink-0" />
+                    Pricing pages and nonprofit discount information
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-mtm-primary rounded-full mt-2 flex-shrink-0" />
+                    Accessibility statements (VPAT, WCAG compliance)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-mtm-primary rounded-full mt-2 flex-shrink-0" />
+                    Environmental and sustainability reports
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-4 bg-gray-50 rounded-lg">
+                <div className="flex items-center gap-2 mb-3">
+                  <BadgeCheck className="w-5 h-5 text-mtm-primary" />
+                  <h3 className="font-semibold text-mtm-navy">Third-Party Verification</h3>
+                </div>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-mtm-primary rounded-full mt-2 flex-shrink-0" />
+                    FedRAMP Marketplace authorization status
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-mtm-primary rounded-full mt-2 flex-shrink-0" />
+                    Common Sense Media privacy ratings
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-mtm-primary rounded-full mt-2 flex-shrink-0" />
+                    Mozilla Foundation reviews
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 bg-mtm-primary rounded-full mt-2 flex-shrink-0" />
+                    Industry certification databases
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="p-4 bg-mtm-primary/5 rounded-lg border border-mtm-primary/20">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-mtm-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm text-gray-700 mb-2">
+                    <strong>Have updated information?</strong> AI tools change their policies frequently.
+                    If you notice outdated or incorrect information in our evaluations, please let us know.
+                  </p>
+                  <Link
+                    to="/request-review"
+                    className="text-sm text-mtm-primary hover:text-mtm-navy font-medium"
+                  >
+                    Submit a correction →
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </section>
+
+        {/* Community */}
+        <section className="mt-16">
+          <Card className="max-w-3xl mx-auto">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-mtm-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <Users className="w-6 h-6 text-mtm-accent" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-mtm-navy mb-2">
+                  Community-Driven Updates
+                </h2>
+                <p className="text-gray-600 mb-4">
+                  This directory is maintained by{' '}
+                  <a
+                    href="https://mtm.now"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-mtm-primary hover:text-mtm-navy"
+                  >
+                    Meet the Moment
+                  </a>{' '}
+                  with input from the nonprofit technology community. Members of{' '}
+                  <a
+                    href="https://mtm.now/mtm-together"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-mtm-primary hover:text-mtm-navy"
+                  >
+                    MTM Together
+                  </a>
+                  —our community for nonprofits navigating AI—help keep evaluations current and relevant.
+                </p>
+                <p className="text-sm text-gray-500">
+                  Want to contribute? Join the community or submit tool requests through the directory.
+                </p>
+              </div>
+            </div>
           </Card>
         </section>
 
