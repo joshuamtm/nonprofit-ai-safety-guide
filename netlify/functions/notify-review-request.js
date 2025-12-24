@@ -77,7 +77,7 @@ export default async (request, context) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'AI Tools Directory <notifications@updates.mtm.now>',
+        from: 'AI Tools Directory <onboarding@resend.dev>',
         to: ['joshua@mtm.now'],
         subject: `New Review Request: ${tool_name}`,
         html: emailHtml,
