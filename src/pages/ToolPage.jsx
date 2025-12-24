@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, ExternalLink, Loader2, Calendar, Building2 } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Loader2, Calendar, Building2, BookOpen } from 'lucide-react'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import Badge from '../components/ui/Badge'
@@ -282,6 +282,27 @@ export default function ToolPage() {
           {/* Sidebar */}
           <aside className="lg:w-80 flex-shrink-0 mt-8 lg:mt-0 space-y-6">
             <ProxySignals signals={tool.proxy_signals || []} />
+
+            {/* How We Score */}
+            <Card>
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-mtm-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <BookOpen className="w-5 h-5 text-mtm-primary" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-mtm-navy mb-1">How We Score</h3>
+                  <p className="text-sm text-gray-600 mb-3">
+                    Tools are evaluated on 8 criteria (30 points max) with extra weight on data privacy and security.
+                  </p>
+                  <Link
+                    to="/methodology"
+                    className="text-sm text-mtm-primary hover:text-mtm-navy font-medium"
+                  >
+                    View full methodology →
+                  </Link>
+                </div>
+              </div>
+            </Card>
 
             <Card>
               <h3 className="font-semibold text-mtm-navy mb-3">Report an Issue</h3>

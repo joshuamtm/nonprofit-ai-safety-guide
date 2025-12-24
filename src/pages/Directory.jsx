@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
-import { Loader2, ChevronDown, ChevronUp, HelpCircle } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Loader2, ChevronDown, ChevronUp, HelpCircle, BookOpen } from 'lucide-react'
 import SearchBar from '../components/tools/SearchBar'
 import CategoryFilter from '../components/tools/CategoryFilter'
 import TierToggle from '../components/tools/TierToggle'
@@ -208,6 +209,20 @@ export default function Directory() {
                     <li><strong>Sensitive data:</strong> Use Enterprise tier filter for strongest privacy controls.</li>
                   </ul>
                 </div>
+              </div>
+
+              {/* Methodology Link */}
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <Link
+                  to="/methodology"
+                  className="inline-flex items-center gap-2 text-mtm-primary hover:text-mtm-navy transition-colors font-medium"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  Learn about our evaluation methodology
+                </Link>
+                <p className="text-xs text-gray-500 mt-1">
+                  See exactly how we score each tool across 8 criteria including data privacy, security, and more.
+                </p>
               </div>
             </div>
           )}
