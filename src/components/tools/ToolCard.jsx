@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ExternalLink } from 'lucide-react'
 import Card from '../ui/Card'
@@ -7,24 +8,30 @@ import { formatDate } from '../../lib/utils'
 
 export default function ToolCard({ tool, tier }) {
   const displayTier = tier || tool.tiers?.[0]
+  const [imgError, setImgError] = useState(false)
+
+  const LetterAvatar = () => (
+    <div className="w-12 h-12 rounded-lg bg-mtm-primary/10 flex items-center justify-center">
+      <span className="text-mtm-primary font-bold text-lg">
+        {tool.name?.charAt(0)}
+      </span>
+    </div>
+  )
 
   return (
     <Card hover className="h-full flex flex-col">
       {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="flex items-center gap-3">
-          {tool.logo_url ? (
+          {tool.logo_url && !imgError ? (
             <img
               src={tool.logo_url}
               alt={`${tool.name} logo`}
               className="w-12 h-12 rounded-lg object-contain bg-gray-50 p-1"
+              onError={() => setImgError(true)}
             />
           ) : (
-            <div className="w-12 h-12 rounded-lg bg-mtm-primary/10 flex items-center justify-center">
-              <span className="text-mtm-primary font-bold text-lg">
-                {tool.name?.charAt(0)}
-              </span>
-            </div>
+            <LetterAvatar />
           )}
           <div>
             <h3 className="font-semibold text-mtm-navy">

@@ -16,6 +16,7 @@ export default function ToolPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [selectedTierIndex, setSelectedTierIndex] = useState(0)
+  const [imgError, setImgError] = useState(false)
 
   useEffect(() => {
     async function fetchTool() {
@@ -106,11 +107,12 @@ export default function ToolPage() {
           <div className="flex flex-col md:flex-row md:items-start gap-6">
             {/* Logo */}
             <div className="flex-shrink-0">
-              {tool.logo_url ? (
+              {tool.logo_url && !imgError ? (
                 <img
                   src={tool.logo_url}
                   alt={`${tool.name} logo`}
                   className="w-20 h-20 rounded-lg object-contain bg-gray-50 p-2 border border-gray-200"
+                  onError={() => setImgError(true)}
                 />
               ) : (
                 <div className="w-20 h-20 rounded-lg bg-mtm-primary/10 flex items-center justify-center border border-mtm-primary/20">
