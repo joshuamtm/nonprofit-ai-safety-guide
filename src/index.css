@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* MTM Custom Styles */
+:root {
+  --mtm-primary: #1ab1d2;
+  --mtm-accent: #f18f38;
+  --mtm-navy: #1c487b;
+  --mtm-soft-blue: #85abbd;
+  --mtm-bg-cream: #fef4e3;
+  --mtm-bg-white: #fafdfe;
+  --mtm-text-primary: #333333;
+  --mtm-text-secondary: #666666;
+  --mtm-border: #e5e5e5;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #333333;
+  background-color: #fafdfe;
+  margin: 0;
+}
+
+/* Focus States for Accessibility */
+*:focus-visible {
+  outline: 2px solid #1ab1d2;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions */
+.transition-mtm {
+  transition: all 0.2s ease;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: #1c487b;
+}
