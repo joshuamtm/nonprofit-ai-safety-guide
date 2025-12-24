@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react'
 import { CATEGORIES } from '../../lib/utils'
 import { cn } from '../../lib/utils'
 
@@ -23,25 +24,36 @@ export default function CategoryFilter({ selected = [], onChange }) {
             onClick={clearAll}
             className="text-xs text-mtm-primary hover:underline"
           >
-            Clear all
+            Clear
           </button>
         )}
       </div>
-      <div className="flex flex-wrap gap-2">
-        {CATEGORIES.map((category) => (
-          <button
-            key={category.id}
-            onClick={() => toggleCategory(category.id)}
-            className={cn(
-              'px-3 py-1.5 rounded-full text-sm font-medium transition-colors',
-              selected.includes(category.id)
-                ? 'bg-mtm-primary text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            )}
-          >
-            {category.label}
-          </button>
-        ))}
+      <div className="space-y-1">
+        {CATEGORIES.map((category) => {
+          const isSelected = selected.includes(category.id)
+          return (
+            <button
+              key={category.id}
+              onClick={() => toggleCategory(category.id)}
+              className={cn(
+                'w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors text-left',
+                isSelected
+                  ? 'bg-mtm-primary/10 text-mtm-primary font-medium'
+                  : 'text-gray-600 hover:bg-gray-50'
+              )}
+            >
+              <span className={cn(
+                'w-4 h-4 rounded border flex items-center justify-center flex-shrink-0',
+                isSelected
+                  ? 'bg-mtm-primary border-mtm-primary'
+                  : 'border-gray-300'
+              )}>
+                {isSelected && <Check className="w-3 h-3 text-white" />}
+              </span>
+              <span className="truncate">{category.label}</span>
+            </button>
+          )
+        })}
       </div>
     </div>
   )

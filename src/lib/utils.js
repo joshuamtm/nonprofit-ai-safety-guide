@@ -36,21 +36,21 @@ export const calculateOverallScore = (evaluations) => {
   if (!evaluations || evaluations.length === 0) return null
 
   let weightedSum = 0
-  let hasAllRequired = true
+  let maxPossibleWeightedSum = 0
 
   Object.keys(CRITERIA_WEIGHTS).forEach(criteria => {
     const evaluation = evaluations.find(e => e.criteria_key === criteria)
     if (evaluation && evaluation.rating !== null) {
       weightedSum += evaluation.rating * CRITERIA_WEIGHTS[criteria]
-    } else {
-      hasAllRequired = false
+      maxPossibleWeightedSum += 3 * CRITERIA_WEIGHTS[criteria]
     }
   })
 
-  if (!hasAllRequired) return null
+  // Require at least half the criteria to show a score
+  if (maxPossibleWeightedSum < MAX_WEIGHTED_SCORE / 2) return null
 
-  // Normalize to 0-100 scale
-  return Math.round((weightedSum / MAX_WEIGHTED_SCORE) * 100)
+  // Normalize to 0-100 scale based on evaluated criteria
+  return Math.round((weightedSum / maxPossibleWeightedSum) * 100)
 }
 
 export const getRatingFromScore = (score) => {
