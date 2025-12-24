@@ -9,41 +9,40 @@ export default function EvaluationBreakdown({ evaluations = [] }) {
     return acc
   }, {})
 
-  // Calculate total weighted score
+  // Calculate total weighted score (returns 0-100)
   const scores = evaluations.reduce((acc, e) => {
     acc[e.criteria_key] = e.rating
     return acc
   }, {})
   const totalScore = calculateWeightedScore(scores)
-  const maxScore = 30 // Max possible weighted score
 
   return (
     <Card>
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-mtm-navy mb-2">Evaluation Breakdown</h3>
         <p className="text-sm text-gray-600">
-          Detailed scoring across 8 evaluation criteria. Data Privacy and Security are weighted 2x.
+          Detailed scoring across 9 evaluation criteria. Data Privacy and Security are weighted 2x.
         </p>
       </div>
 
       {/* Total Score Summary */}
       <div className="bg-gray-50 rounded-lg p-4 mb-6">
         <div className="flex items-center justify-between">
-          <span className="font-medium text-gray-700">Total Weighted Score</span>
+          <span className="font-medium text-gray-700">Overall Score</span>
           <span className="text-2xl font-bold text-mtm-navy">
-            {totalScore} / {maxScore}
+            {totalScore}/100
           </span>
         </div>
         <div className="mt-2 h-3 bg-gray-200 rounded-full overflow-hidden">
           <div
             className={`h-full rounded-full ${
-              totalScore >= 24
+              totalScore >= 75
                 ? 'bg-rating-recommended'
-                : totalScore >= 16
+                : totalScore >= 50
                 ? 'bg-rating-caution'
                 : 'bg-rating-not-recommended'
             }`}
-            style={{ width: `${(totalScore / maxScore) * 100}%` }}
+            style={{ width: `${totalScore}%` }}
           />
         </div>
       </div>

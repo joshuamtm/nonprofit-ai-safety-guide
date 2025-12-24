@@ -112,7 +112,7 @@ We welcome contributions! Please see our contributing guidelines for details.
 
 ## License
 
-Copyright © 2024 Meet the Moment. All rights reserved.
+Copyright © 2025 Meet the Moment. All rights reserved.
 
 ## Disclaimer
 

@@ -120,7 +120,7 @@ export default function Home() {
                   <CheckCircle className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Recommended (24-30 points)</h3>
+                  <h3 className="font-semibold text-gray-900">Recommended (75-100)</h3>
                   <p className="text-sm text-gray-600">
                     Tools that meet reasonable standards for data privacy, security, and responsible AI
                     practices. Safe for most nonprofit use cases.
@@ -133,7 +133,7 @@ export default function Home() {
                   <span className="text-white font-bold">!</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Caution (16-23 points)</h3>
+                  <h3 className="font-semibold text-gray-900">Caution (50-74)</h3>
                   <p className="text-sm text-gray-600">
                     Tools that have some concerns but may be appropriate for certain use cases.
                     Review the specific evaluation details before using.
@@ -146,7 +146,7 @@ export default function Home() {
                   <span className="text-white font-bold">✕</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Not Recommended (0-15 points)</h3>
+                  <h3 className="font-semibold text-gray-900">Not Recommended (0-49)</h3>
                   <p className="text-sm text-gray-600">
                     Tools with significant concerns about data privacy, security, or terms of
                     service. We recommend avoiding these tools for organizational use.

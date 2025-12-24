@@ -51,7 +51,7 @@ export default function ToolCard({ tool, tier }) {
             )}
             {score !== null && (
               <span className="text-xs font-medium text-gray-500">
-                {score}/30
+                {score}/100
               </span>
             )}
           </div>

@@ -1,7 +1,14 @@
-// Rating calculation based on PRD formula
-// Overall = (DataPrivacy × 2) + (Security × 2) + ToS + Accessibility +
-//           Pricing + Environmental + EthicalTraining + EnterpriseControls
-// Maximum possible: 30 points
+// Rating calculation - normalized to 0-100 scale
+// Each criterion is scored 0-3, then weighted and normalized to 100
+//
+// Weights (reflecting importance to nonprofits):
+//   Data Privacy: 2x weight (~18% of total)
+//   Security: 2x weight (~18% of total)
+//   Other 7 criteria: 1x weight each (~9% each, 64% total)
+//
+// Formula: (weighted_sum / max_weighted_sum) × 100
+// Max weighted sum: (3×2) + (3×2) + (3×1×7) = 6 + 6 + 21 = 33
+// Score = (weighted_sum / 33) × 100
 
 export const CRITERIA_WEIGHTS = {
   data_privacy: 2,
@@ -12,47 +19,55 @@ export const CRITERIA_WEIGHTS = {
   environmental: 1,
   ethical_training: 1,
   enterprise_controls: 1,
+  sector_commitment: 1,
 }
 
+// Calculate max possible weighted score based on weights
+export const MAX_WEIGHTED_SCORE = Object.values(CRITERIA_WEIGHTS).reduce((sum, weight) => sum + (3 * weight), 0) // = 33
+
 export const RATING_THRESHOLDS = {
-  recommended: { min: 24, max: 30, label: 'Recommended', color: 'rating-recommended' },
-  caution: { min: 16, max: 23, label: 'Caution', color: 'rating-caution' },
-  not_recommended: { min: 0, max: 15, label: 'Not Recommended', color: 'rating-not-recommended' },
+  recommended: { min: 75, max: 100, label: 'Recommended', color: 'rating-recommended' },
+  caution: { min: 50, max: 74, label: 'Caution', color: 'rating-caution' },
+  not_recommended: { min: 0, max: 49, label: 'Not Recommended', color: 'rating-not-recommended' },
   under_review: { min: null, max: null, label: 'Under Review', color: 'rating-under-review' },
 }
 
 export const calculateOverallScore = (evaluations) => {
   if (!evaluations || evaluations.length === 0) return null
 
-  let totalScore = 0
+  let weightedSum = 0
   let hasAllRequired = true
 
   Object.keys(CRITERIA_WEIGHTS).forEach(criteria => {
     const evaluation = evaluations.find(e => e.criteria_key === criteria)
     if (evaluation && evaluation.rating !== null) {
-      totalScore += evaluation.rating * CRITERIA_WEIGHTS[criteria]
+      weightedSum += evaluation.rating * CRITERIA_WEIGHTS[criteria]
     } else {
       hasAllRequired = false
     }
   })
 
-  return hasAllRequired ? totalScore : null
+  if (!hasAllRequired) return null
+
+  // Normalize to 0-100 scale
+  return Math.round((weightedSum / MAX_WEIGHTED_SCORE) * 100)
 }
 
 export const getRatingFromScore = (score) => {
   if (score === null) return RATING_THRESHOLDS.under_review
-  if (score >= 24) return RATING_THRESHOLDS.recommended
-  if (score >= 16) return RATING_THRESHOLDS.caution
+  if (score >= 75) return RATING_THRESHOLDS.recommended
+  if (score >= 50) return RATING_THRESHOLDS.caution
   return RATING_THRESHOLDS.not_recommended
 }
 
 export const calculateWeightedScore = (scores) => {
-  let total = 0
+  let weightedSum = 0
   Object.keys(CRITERIA_WEIGHTS).forEach(key => {
     const score = scores[key] ?? 0
-    total += score * CRITERIA_WEIGHTS[key]
+    weightedSum += score * CRITERIA_WEIGHTS[key]
   })
-  return total
+  // Normalize to 0-100 scale
+  return Math.round((weightedSum / MAX_WEIGHTED_SCORE) * 100)
 }
 
 export const CATEGORIES = [
@@ -75,6 +90,7 @@ export const CRITERIA_LABELS = {
   environmental: 'Environmental Impact',
   ethical_training: 'Ethical Training Data',
   enterprise_controls: 'Enterprise Controls',
+  sector_commitment: 'Sector Commitment',
 }
 
 export const formatDate = (dateString) => {

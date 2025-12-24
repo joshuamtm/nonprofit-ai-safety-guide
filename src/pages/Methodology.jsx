@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Shield, Lock, FileText, Accessibility, DollarSign, Leaf, Brain, Building2, Search, Users, BadgeCheck, AlertCircle } from 'lucide-react'
+import { ArrowRight, Shield, Lock, FileText, Accessibility, DollarSign, Leaf, Brain, Building2, Search, Users, BadgeCheck, AlertCircle, Handshake } from 'lucide-react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import { CRITERIA_WEIGHTS } from '../lib/utils'
@@ -163,6 +163,29 @@ const CRITERIA = [
       { score: 0, label: 'Poor: No admin or enterprise features' },
     ],
   },
+  {
+    key: 'sector_commitment',
+    icon: Handshake,
+    title: 'Sector Commitment',
+    weight: CRITERIA_WEIGHTS.sector_commitment,
+    description: 'The vendor\'s demonstrated, sustained commitment to serving the nonprofit sector—evaluated for authenticity and depth, not just marketing claims.',
+    considerations: [
+      'Track record length (5+ years indicates genuine commitment)',
+      'TechSoup partnership and validation status',
+      'Dedicated nonprofit teams with sector expertise',
+      'NTEN/AFP/sector conference participation and sponsorship',
+      'Timing of initiatives (pre-crisis vs. crisis-timed "grantwashing")',
+      'Substantive vs. performative program design',
+      'Nonprofit-specific product features and roadmap investment',
+      'Published case studies with measurable nonprofit outcomes',
+    ],
+    scores: [
+      { score: 3, label: 'Sector Leader: Transformational commitment with 5+ year track record, dedicated teams, deep TechSoup/NTEN integration, nonprofit-first features' },
+      { score: 2, label: 'Committed Partner: Material investment with active programs, sector partnerships, and genuine (non-crisis-timed) engagement' },
+      { score: 1, label: 'Aware but Limited: Performative or transactional engagement—generic discounts, crisis-timed announcements, limited sector expertise' },
+      { score: 0, label: 'No Commitment: No nonprofit programs, discontinued support, or regressive policies that harm sector interests' },
+    ],
+  },
 ]
 
 export default function Methodology() {
@@ -187,34 +210,106 @@ export default function Methodology() {
           <Card className="max-w-3xl mx-auto">
             <h2 className="text-2xl font-bold text-mtm-navy mb-4">How We Score</h2>
             <p className="text-gray-600 mb-6">
-              Each tool is evaluated across 8 criteria. Each criterion receives a score from 0-3.
-              Data Privacy and Security are weighted 2x due to their critical importance for
-              nonprofits handling sensitive data.
+              Each tool is evaluated across <strong>9 criteria</strong> and receives an overall score from <strong>0 to 100</strong>.
+              Individual criteria are scored 0-3 (Poor, Fair, Good, Excellent), then weighted and normalized
+              to produce a final score out of 100.
             </p>
 
             <div className="bg-gray-50 rounded-mtm-lg p-4 mb-6">
-              <p className="font-mono text-sm text-gray-700">
-                Overall Score = (Data Privacy × 2) + (Security × 2) + ToS + Accessibility +
-                Pricing + Environmental + Ethical Training + Enterprise Controls
+              <h4 className="text-sm font-semibold text-mtm-navy mb-3">Weighted Scoring System</h4>
+
+              <p className="text-sm text-gray-600 mb-4">
+                Not all criteria are weighted equally. <strong>Data Privacy</strong> and <strong>Security</strong> carry
+                <strong> 2x weight</strong> due to their critical importance for nonprofits handling sensitive data.
               </p>
-              <p className="text-sm text-gray-500 mt-2">Maximum possible score: 30 points</p>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-2 pr-4 font-semibold text-mtm-navy">Criterion</th>
+                      <th className="text-center py-2 px-4 font-semibold text-mtm-navy">Weight</th>
+                      <th className="text-center py-2 pl-4 font-semibold text-mtm-navy">% of Score</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-gray-600">
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4">Data Privacy</td>
+                      <td className="text-center py-2 px-4"><span className="px-2 py-0.5 bg-mtm-navy/10 text-mtm-navy rounded text-xs font-medium">2x</span></td>
+                      <td className="text-center py-2 pl-4">~18%</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4">Security Posture</td>
+                      <td className="text-center py-2 px-4"><span className="px-2 py-0.5 bg-mtm-navy/10 text-mtm-navy rounded text-xs font-medium">2x</span></td>
+                      <td className="text-center py-2 pl-4">~18%</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4">Terms of Service</td>
+                      <td className="text-center py-2 px-4"><span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">1x</span></td>
+                      <td className="text-center py-2 pl-4">~9%</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4">Accessibility</td>
+                      <td className="text-center py-2 px-4"><span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">1x</span></td>
+                      <td className="text-center py-2 pl-4">~9%</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4">Nonprofit Pricing</td>
+                      <td className="text-center py-2 px-4"><span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">1x</span></td>
+                      <td className="text-center py-2 pl-4">~9%</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4">Environmental Impact</td>
+                      <td className="text-center py-2 px-4"><span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">1x</span></td>
+                      <td className="text-center py-2 pl-4">~9%</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4">Ethical Training Data</td>
+                      <td className="text-center py-2 px-4"><span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">1x</span></td>
+                      <td className="text-center py-2 pl-4">~9%</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4">Enterprise Controls</td>
+                      <td className="text-center py-2 px-4"><span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">1x</span></td>
+                      <td className="text-center py-2 pl-4">~9%</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 pr-4">Sector Commitment</td>
+                      <td className="text-center py-2 px-4"><span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">1x</span></td>
+                      <td className="text-center py-2 pl-4">~9%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="text-sm text-gray-600 mt-4 pt-3 border-t border-gray-200">
+                <p><strong>How the score is calculated:</strong></p>
+                <ol className="list-decimal ml-5 mt-2 space-y-1">
+                  <li>Each criterion is scored 0-3 (Poor, Fair, Good, Excellent)</li>
+                  <li>Scores are multiplied by their weight (2x for Privacy/Security, 1x for others)</li>
+                  <li>Weighted scores are summed and normalized to a 0-100 scale</li>
+                </ol>
+                <p className="mt-3 font-mono text-xs bg-white p-2 rounded border border-gray-200">
+                  Score = (Weighted Sum ÷ Max Possible) × 100
+                </p>
+              </div>
             </div>
 
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <span className="w-28 text-sm font-medium">24-30 points:</span>
+                <span className="w-24 text-sm font-medium">75-100:</span>
                 <span className="px-3 py-1 bg-rating-recommended text-white rounded-full text-sm font-medium">
                   Recommended
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="w-28 text-sm font-medium">16-23 points:</span>
+                <span className="w-24 text-sm font-medium">50-74:</span>
                 <span className="px-3 py-1 bg-rating-caution text-white rounded-full text-sm font-medium">
                   Caution
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="w-28 text-sm font-medium">0-15 points:</span>
+                <span className="w-24 text-sm font-medium">0-49:</span>
                 <span className="px-3 py-1 bg-rating-not-recommended text-white rounded-full text-sm font-medium">
                   Not Recommended
                 </span>
@@ -418,6 +513,55 @@ export default function Methodology() {
                     Submit a correction →
                   </Link>
                 </div>
+              </div>
+            </div>
+          </Card>
+        </section>
+
+        {/* Grantwashing Detection */}
+        <section className="mt-16">
+          <Card className="max-w-3xl mx-auto">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-rating-caution/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <AlertCircle className="w-6 h-6 text-rating-caution" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-mtm-navy mb-2">
+                  Grantwashing Detection Framework
+                </h2>
+                <p className="text-gray-600 mb-4">
+                  "Grantwashing" describes performative nonprofit support designed primarily for PR value
+                  rather than genuine sector investment. We evaluate Sector Commitment with these red flags in mind:
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <div className="p-3 bg-rating-not-recommended/5 border border-rating-not-recommended/20 rounded-lg">
+                    <h4 className="text-sm font-semibold text-rating-not-recommended mb-2">🚩 Warning Signs</h4>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li>• Crisis-timed announcements (e.g., post-layoff goodwill)</li>
+                      <li>• Generic discounts without sector expertise</li>
+                      <li>• No dedicated nonprofit team or resources</li>
+                      <li>• PR-heavy, substance-light programs</li>
+                      <li>• Discontinued or scaled-back support history</li>
+                    </ul>
+                  </div>
+
+                  <div className="p-3 bg-rating-recommended/5 border border-rating-recommended/20 rounded-lg">
+                    <h4 className="text-sm font-semibold text-rating-recommended mb-2">✓ Authentic Indicators</h4>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li>• 5+ year consistent track record</li>
+                      <li>• TechSoup partnership and validation</li>
+                      <li>• Dedicated nonprofit teams with sector hires</li>
+                      <li>• NTEN/sector conference presence pre-crisis</li>
+                      <li>• Nonprofit-specific product features</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <p className="text-sm text-gray-500">
+                  Vendors like Microsoft (20+ years), Google (22+ years), and Canva (100% free tier) demonstrate
+                  genuine sector commitment. Crisis-timed initiatives from other vendors warrant closer scrutiny.
+                </p>
               </div>
             </div>
           </Card>

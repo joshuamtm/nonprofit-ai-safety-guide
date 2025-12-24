@@ -176,15 +176,15 @@ export default function Directory() {
                   <ul className="space-y-2 text-gray-600">
                     <li className="flex items-start gap-2">
                       <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-recommended flex-shrink-0"></span>
-                      <span><strong>Recommended</strong> (24-30 pts): Safe for most nonprofit use cases with proper policies.</span>
+                      <span><strong>Recommended</strong> (75-100): Safe for most nonprofit use cases with proper policies.</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-caution flex-shrink-0"></span>
-                      <span><strong>Caution</strong> (16-23 pts): Usable with specific guardrails. Review concerns before adopting.</span>
+                      <span><strong>Caution</strong> (50-74): Usable with specific guardrails. Review concerns before adopting.</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-not-recommended flex-shrink-0"></span>
-                      <span><strong>Not Recommended</strong> (0-15 pts): Significant concerns for nonprofit use.</span>
+                      <span><strong>Not Recommended</strong> (0-49): Significant concerns for nonprofit use.</span>
                     </li>
                   </ul>
                 </div>
