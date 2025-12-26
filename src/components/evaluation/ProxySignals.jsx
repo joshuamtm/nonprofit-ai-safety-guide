@@ -30,7 +30,7 @@ const getSignalIcon = (signalValue) => {
     case 'authorized':
     case 'certified':
     case 'yes':
-      return <Check className="w-5 h-5 text-rating-approved" />
+      return <Check className="w-5 h-5 text-rating-recommended" />
     case 'failed':
     case 'not_authorized':
     case 'no':

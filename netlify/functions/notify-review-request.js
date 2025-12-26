@@ -1,5 +1,16 @@
 // Netlify Function: Receives Supabase webhook on new review_requests, sends email via Resend
 
+// Escape HTML to prevent XSS in email content
+const escapeHtml = (str) => {
+  if (!str) return ''
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+}
+
 export default async (request, context) => {
   // Only allow POST
   if (request.method !== 'POST') {
@@ -34,6 +45,13 @@ export default async (request, context) => {
       return new Response('Email service not configured', { status: 500 })
     }
 
+    // Escape all user inputs to prevent XSS
+    const safeName = escapeHtml(tool_name) || 'Not provided'
+    const safeUrl = escapeHtml(tool_url)
+    const safeEmail = escapeHtml(requester_email)
+    const safeOrg = escapeHtml(requester_org) || 'Not provided'
+    const safeReason = escapeHtml(priority_reason) || 'Not provided'
+
     const emailHtml = `
       <h2>New Tool Review Request</h2>
       <p>Someone submitted a request to review an AI tool:</p>
@@ -41,23 +59,23 @@ export default async (request, context) => {
       <table style="border-collapse: collapse; margin: 20px 0;">
         <tr>
           <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Tool Name</td>
-          <td style="padding: 8px; border: 1px solid #ddd;">${tool_name || 'Not provided'}</td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${safeName}</td>
         </tr>
         <tr>
           <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Tool URL</td>
-          <td style="padding: 8px; border: 1px solid #ddd;">${tool_url ? `<a href="${tool_url}">${tool_url}</a>` : 'Not provided'}</td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${safeUrl ? `<a href="${safeUrl}">${safeUrl}</a>` : 'Not provided'}</td>
         </tr>
         <tr>
           <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Requester Email</td>
-          <td style="padding: 8px; border: 1px solid #ddd;"><a href="mailto:${requester_email}">${requester_email}</a></td>
+          <td style="padding: 8px; border: 1px solid #ddd;"><a href="mailto:${safeEmail}">${safeEmail}</a></td>
         </tr>
         <tr>
           <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Organization</td>
-          <td style="padding: 8px; border: 1px solid #ddd;">${requester_org || 'Not provided'}</td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${safeOrg}</td>
         </tr>
         <tr>
           <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Priority Reason</td>
-          <td style="padding: 8px; border: 1px solid #ddd;">${priority_reason || 'Not provided'}</td>
+          <td style="padding: 8px; border: 1px solid #ddd;">${safeReason}</td>
         </tr>
         <tr>
           <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">Submitted</td>
@@ -66,7 +84,7 @@ export default async (request, context) => {
       </table>
 
       <p style="margin-top: 20px; color: #666;">
-        <a href="https://supabase.com/dashboard/project/evlzeqhybsihzsteoaye/editor/29270">View all requests in Supabase</a>
+        View in Supabase dashboard
       </p>
     `
 

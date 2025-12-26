@@ -59,7 +59,7 @@ const getRiskColor = (level) => {
     case 'medium':
       return 'border-rating-caution/30 bg-rating-caution/5'
     case 'low':
-      return 'border-rating-approved/30 bg-rating-approved/5'
+      return 'border-rating-recommended/30 bg-rating-recommended/5'
     default:
       return 'border-gray-200 bg-gray-50'
   }
@@ -72,7 +72,7 @@ const getRiskBadge = (level) => {
     case 'medium':
       return 'bg-rating-caution/10 text-rating-caution'
     case 'low':
-      return 'bg-rating-approved/10 text-rating-approved'
+      return 'bg-rating-recommended/10 text-rating-recommended'
     default:
       return 'bg-gray-100 text-gray-600'
   }

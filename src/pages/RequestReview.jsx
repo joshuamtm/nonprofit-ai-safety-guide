@@ -17,7 +17,7 @@ const PROCESS_STEPS = [
   {
     icon: CheckCircle,
     title: 'We Evaluate',
-    description: 'Our team reviews the tool against our 8-criteria rubric and publishes results.',
+    description: 'Our team reviews the tool against our 9-criteria rubric and publishes results.',
   },
 ]
 

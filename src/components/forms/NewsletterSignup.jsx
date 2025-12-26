@@ -45,7 +45,7 @@ export default function NewsletterSignup({ variant = 'default' }) {
   if (status === 'success') {
     return (
       <div className={`flex items-center gap-2 ${variant === 'compact' ? 'text-sm' : ''}`}>
-        <CheckCircle className="w-5 h-5 text-rating-approved" />
+        <CheckCircle className="w-5 h-5 text-rating-recommended" />
         <span className="text-gray-700">Thanks for subscribing!</span>
       </div>
     )
