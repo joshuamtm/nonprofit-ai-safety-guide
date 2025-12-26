@@ -75,6 +75,15 @@ CREATE TABLE IF NOT EXISTS evaluation_changelog (
   changed_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Newsletter Subscribers: Email signups
+CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email TEXT NOT NULL UNIQUE,
+  subscribed_at TIMESTAMPTZ DEFAULT NOW(),
+  unsubscribed_at TIMESTAMPTZ,
+  source TEXT DEFAULT 'website' -- website, api, import
+);
+
 -- Create indexes for better query performance
 CREATE INDEX IF NOT EXISTS idx_tools_name ON tools(name);
 CREATE INDEX IF NOT EXISTS idx_tools_categories ON tools USING GIN(categories);
@@ -83,6 +92,7 @@ CREATE INDEX IF NOT EXISTS idx_tool_tiers_rating ON tool_tiers(overall_rating);
 CREATE INDEX IF NOT EXISTS idx_evaluations_tier_id ON evaluations(tool_tier_id);
 CREATE INDEX IF NOT EXISTS idx_proxy_signals_tool_id ON proxy_signals(tool_id);
 CREATE INDEX IF NOT EXISTS idx_review_requests_status ON review_requests(status);
+CREATE INDEX IF NOT EXISTS idx_newsletter_email ON newsletter_subscribers(email);
 
 -- Enable Row Level Security (RLS)
 ALTER TABLE tools ENABLE ROW LEVEL SECURITY;
@@ -91,6 +101,7 @@ ALTER TABLE evaluations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE proxy_signals ENABLE ROW LEVEL SECURITY;
 ALTER TABLE review_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE evaluation_changelog ENABLE ROW LEVEL SECURITY;
+ALTER TABLE newsletter_subscribers ENABLE ROW LEVEL SECURITY;
 
 -- Public read access policies
 CREATE POLICY "Allow public read access on tools" ON tools FOR SELECT USING (true);
@@ -100,6 +111,9 @@ CREATE POLICY "Allow public read access on proxy_signals" ON proxy_signals FOR S
 
 -- Public insert for review requests
 CREATE POLICY "Allow public insert on review_requests" ON review_requests FOR INSERT WITH CHECK (true);
+
+-- Public insert for newsletter subscribers
+CREATE POLICY "Allow public insert on newsletter_subscribers" ON newsletter_subscribers FOR INSERT WITH CHECK (true);
 
 -- Updated_at trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()

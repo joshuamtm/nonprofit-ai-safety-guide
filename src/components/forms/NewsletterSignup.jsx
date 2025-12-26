@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Mail, Loader2, CheckCircle } from 'lucide-react'
 import Button from '../ui/Button'
+import { supabase } from '../../lib/supabase'
 
 export default function NewsletterSignup({ variant = 'default' }) {
   const [email, setEmail] = useState('')
@@ -12,13 +13,30 @@ export default function NewsletterSignup({ variant = 'default' }) {
     setStatus('submitting')
     setError('')
 
-    // For MVP, just simulate a successful signup
-    // In production, this would connect to an email service
+    if (!supabase) {
+      setError('Unable to subscribe. Please try again later.')
+      setStatus('error')
+      return
+    }
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      setStatus('success')
+      const { error: insertError } = await supabase
+        .from('newsletter_subscribers')
+        .insert([{ email: email.toLowerCase().trim() }])
+
+      if (insertError) {
+        // Handle duplicate email
+        if (insertError.code === '23505') {
+          setStatus('success') // Already subscribed, show success anyway
+        } else {
+          throw insertError
+        }
+      } else {
+        setStatus('success')
+      }
       setEmail('')
     } catch (err) {
+      console.error('Newsletter signup error:', err)
       setError('Failed to subscribe. Please try again.')
       setStatus('error')
     }
