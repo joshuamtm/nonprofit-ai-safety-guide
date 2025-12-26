@@ -1,8 +1,10 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Shield, Search, FileText, CheckCircle } from 'lucide-react'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import NewsletterSignup from '../components/forms/NewsletterSignup'
+import { supabase } from '../lib/supabase'
 
 const FEATURES = [
   {
@@ -31,13 +33,26 @@ const FEATURES = [
   },
 ]
 
-const STATS = [
-  { value: '14', label: 'Tools Evaluated' },
-  { value: '8', label: 'Evaluation Criteria' },
-  { value: '3', label: 'Tier Levels' },
-]
-
 export default function Home() {
+  const [toolCount, setToolCount] = useState(null)
+
+  useEffect(() => {
+    async function fetchToolCount() {
+      if (!supabase) return
+      const { count } = await supabase
+        .from('tools')
+        .select('*', { count: 'exact', head: true })
+      if (count !== null) setToolCount(count)
+    }
+    fetchToolCount()
+  }, [])
+
+  const stats = [
+    { value: toolCount !== null ? toolCount.toString() : '—', label: 'Tools Evaluated' },
+    { value: '9', label: 'Evaluation Criteria' },
+    { value: '✓', label: 'Rates Free & Paid Tiers' },
+  ]
+
   return (
     <div>
       {/* Hero Section */}
@@ -66,7 +81,7 @@ export default function Home() {
       <section className="bg-white py-8 border-b border-gray-100">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-12 md:gap-24">
-            {STATS.map((stat, index) => (
+            {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <p className="text-3xl md:text-4xl font-bold text-mtm-primary">{stat.value}</p>
                 <p className="text-gray-600">{stat.label}</p>
