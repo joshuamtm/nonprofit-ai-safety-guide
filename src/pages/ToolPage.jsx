@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, ExternalLink, Loader2, Calendar, Building2, BookOpen } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Loader2, Calendar, Building2, BookOpen, Download } from 'lucide-react'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import Badge from '../components/ui/Badge'
@@ -172,20 +172,29 @@ export default function ToolPage() {
               )}
             </div>
 
-            {/* External link */}
-            {tool.website_url && (
-              <a
-                href={tool.website_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-shrink-0"
+            {/* Actions */}
+            <div className="flex flex-col sm:flex-row gap-2 flex-shrink-0">
+              <Button
+                variant="outline"
+                onClick={() => window.print()}
+                className="print:hidden"
               >
-                <Button variant="outline">
-                  Visit Website
-                  <ExternalLink className="w-4 h-4 ml-2" />
-                </Button>
-              </a>
-            )}
+                <Download className="w-4 h-4 mr-2" />
+                Export PDF
+              </Button>
+              {tool.website_url && (
+                <a
+                  href={tool.website_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button variant="outline" className="w-full">
+                    Visit Website
+                    <ExternalLink className="w-4 h-4 ml-2" />
+                  </Button>
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -37,3 +37,64 @@ body {
 h1, h2, h3, h4, h5, h6 {
   color: #1c487b;
 }
+
+/* Print Styles for PDF Export */
+@media print {
+  /* Hide non-essential elements */
+  header, footer, nav,
+  .print\\:hidden,
+  button:not(.print\\:block),
+  [class*="sticky"] {
+    display: none !important;
+  }
+
+  /* Reset backgrounds and shadows */
+  body {
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Full width layout */
+  .container {
+    max-width: 100% !important;
+    padding: 0 20px !important;
+  }
+
+  /* Stack sidebar content below main */
+  .lg\\:flex {
+    display: block !important;
+  }
+
+  aside {
+    width: 100% !important;
+    margin-top: 24px !important;
+  }
+
+  /* Ensure cards have borders for print */
+  [class*="Card"], .bg-white {
+    border: 1px solid #e5e5e5 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  /* Preserve rating badge colors */
+  .bg-rating-recommended { background-color: #22c55e !important; }
+  .bg-rating-caution { background-color: #f59e0b !important; }
+  .bg-rating-not-recommended { background-color: #ef4444 !important; }
+  .text-rating-recommended { color: #22c55e !important; }
+  .text-rating-caution { color: #f59e0b !important; }
+  .text-rating-not-recommended { color: #ef4444 !important; }
+
+  /* Page title */
+  @page {
+    margin: 0.75in;
+  }
+
+  /* Add page footer with URL */
+  @page {
+    @bottom-center {
+      content: "Nonprofit AI Safety Guide";
+    }
+  }
+}
