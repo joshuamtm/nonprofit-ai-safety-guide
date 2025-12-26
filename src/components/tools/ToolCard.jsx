@@ -24,28 +24,28 @@ export default function ToolCard({ tool, tier }) {
     <Link to={`/tool/${tool.id}`} className="block h-full">
       <Card hover className="h-full flex flex-col cursor-pointer">
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <div className="flex items-center gap-3">
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
             {tool.logo_url && !imgError ? (
               <img
                 src={tool.logo_url}
                 alt={`${tool.name} logo`}
-                className="w-12 h-12 rounded-lg object-contain bg-gray-50 p-1"
+                className="w-12 h-12 rounded-lg object-contain bg-gray-50 p-1 flex-shrink-0"
                 onError={() => setImgError(true)}
               />
             ) : (
               <LetterAvatar />
             )}
-            <div>
-              <h3 className="font-semibold text-mtm-navy group-hover:text-mtm-primary transition-colors">
+            <div className="min-w-0">
+              <h3 className="font-semibold text-mtm-navy group-hover:text-mtm-primary transition-colors truncate">
                 {tool.name}
               </h3>
               {tool.vendor && (
-                <p className="text-sm text-gray-500">{tool.vendor}</p>
+                <p className="text-sm text-gray-500 truncate">{tool.vendor}</p>
               )}
             </div>
           </div>
-          <div className="flex flex-col items-end gap-1">
+          <div className="flex flex-col items-end gap-1 flex-shrink-0">
             {displayTier && (
               <RatingBadge rating={displayTier.overall_rating} size="sm" />
             )}

@@ -1,5 +1,7 @@
 # Groq Evaluation
 
+> **Note:** Groq (with a 'q') is a separate company from Grok (with a 'k'). Groq is an AI inference platform using LPU chips. Grok is xAI's chatbot owned by Elon Musk/X. These are completely different products.
+
 **Vendor:** Groq, Inc.
 **Website:** https://groq.com
 **Categories:** research, data, productivity, writing

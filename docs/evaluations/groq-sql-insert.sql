@@ -9,7 +9,7 @@ VALUES (
   'Groq, Inc.',
   'Ultra-fast AI inference platform powered by LPU (Language Processing Unit) technology. Provides API access to run various LLMs with industry-leading speed and strong privacy controls.',
   'https://groq.com',
-  'https://groq.com/wp-content/uploads/2024/01/groq-logo-white.svg',
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Groq_logo.svg/512px-Groq_logo.svg.png',
   ARRAY['research', 'data', 'productivity', 'writing']
 )
 RETURNING id;
