@@ -1,16 +1,19 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { Loader2, ChevronDown, ChevronUp, HelpCircle, BookOpen } from 'lucide-react'
+import { Loader2, ChevronDown, ChevronUp, HelpCircle, BookOpen, GitCompare } from 'lucide-react'
 import SearchBar from '../components/tools/SearchBar'
 import CategoryFilter from '../components/tools/CategoryFilter'
 import TierToggle from '../components/tools/TierToggle'
 import ToolGrid from '../components/tools/ToolGrid'
 import Card from '../components/ui/Card'
 import { supabase } from '../lib/supabase'
+import { useCompare } from '../context/CompareContext'
 
 export default function Directory() {
   const [tools, setTools] = useState([])
   const [loading, setLoading] = useState(true)
+  const { compareList } = useCompare()
+  const [showCompareHint, setShowCompareHint] = useState(true)
   const [error, setError] = useState(null)
 
   // Filter state
@@ -209,6 +212,15 @@ export default function Directory() {
                     <li><strong>Sensitive data:</strong> Use Enterprise tier filter for strongest privacy controls.</li>
                   </ul>
                 </div>
+
+                {/* Compare Feature */}
+                <div className="md:col-span-2 lg:col-span-3 pt-4 border-t border-gray-200">
+                  <h3 className="font-semibold text-mtm-navy mb-2">Comparing Tools</h3>
+                  <p className="text-gray-600">
+                    Click the <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-100 rounded text-sm"><svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 3h5v5M8 3H3v5M3 16v5h5M21 16v5h-5M16 21l5-5M3 8l5-5M8 21l-5-5M21 8l-5-5" /></svg> compare</span> icon on any tool card to add it to your comparison (up to 3 tools).
+                    A bar will appear at the bottom of the screen. Click "Compare" to see a side-by-side breakdown of all criteria.
+                  </p>
+                </div>
               </div>
 
               {/* Methodology Link */}
@@ -259,6 +271,26 @@ export default function Directory() {
 
           {/* Results */}
           <main className="flex-grow">
+            {/* Compare hint banner */}
+            {showCompareHint && compareList.length === 0 && !loading && (
+              <div className="mb-4 p-3 bg-mtm-primary/5 border border-mtm-primary/20 rounded-lg flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-mtm-primary/10 rounded-full flex items-center justify-center">
+                    <GitCompare className="w-4 h-4 text-mtm-primary" />
+                  </div>
+                  <p className="text-sm text-gray-700">
+                    <strong>Tip:</strong> Click the <GitCompare className="w-3 h-3 inline mx-1" /> icon on tool cards to compare up to 3 tools side-by-side.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowCompareHint(false)}
+                  className="text-gray-400 hover:text-gray-600 text-sm"
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
+
             {/* Results header */}
             <div className="flex items-center justify-between mb-6">
               <p className="text-gray-600">
