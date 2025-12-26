@@ -58,6 +58,7 @@ export default function EvaluationBreakdown({ evaluations = [] }) {
               score={evaluation?.rating ?? 0}
               weight={CRITERIA_WEIGHTS[key]}
               notes={evaluation?.notes}
+              evidenceUrls={evaluation?.evidence_urls}
             />
           )
         })}
