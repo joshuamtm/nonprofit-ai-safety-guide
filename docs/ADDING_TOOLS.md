@@ -1,4 +1,4 @@
-# Adding Tools to the Trusted AI Tools Directory
+# Adding Tools to the Nonprofit AI Safety Guide
 
 This guide explains how to research, evaluate, and add new AI tools to the directory.
 

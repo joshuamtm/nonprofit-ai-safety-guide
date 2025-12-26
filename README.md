@@ -1,6 +1,6 @@
-# Trusted AI Tools Directory
+# Nonprofit AI Tools Safety Guide
 
-A searchable directory of AI tools evaluated against a nonprofit-specific rubric for safety, privacy, and responsibility.
+A searchable directory of AI tools evaluated against a nonprofit-specific rubric for trust, safety, privacy, and responsibility. Tools are rated Recommended, Caution, or Not Recommended based on comprehensive evaluation.
 
 **Built by [Meet the Moment (MTM)](https://mtm.now)**
 
@@ -31,8 +31,8 @@ A searchable directory of AI tools evaluated against a nonprofit-specific rubric
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-org/trusted-ai-tools-directory.git
-   cd trusted-ai-tools-directory
+   git clone https://github.com/joshuamtm/nonprofit-ai-safety-guide.git
+   cd nonprofit-ai-safety-guide
    ```
 
 2. **Install dependencies**

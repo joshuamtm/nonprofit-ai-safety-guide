@@ -26,8 +26,8 @@ export default function Header() {
                 <span className="text-white font-bold text-xl">AI</span>
               </div>
               <div className="hidden sm:block">
-                <span className="text-mtm-navy font-semibold text-lg">Trusted AI Tools</span>
-                <span className="text-mtm-soft-blue text-sm block -mt-1">by Meet the Moment</span>
+                <span className="text-mtm-navy font-semibold text-lg">AI Safety Guide</span>
+                <span className="text-mtm-soft-blue text-sm block -mt-1">for Nonprofits</span>
               </div>
             </Link>
           </div>

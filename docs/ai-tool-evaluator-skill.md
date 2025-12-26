@@ -1,11 +1,11 @@
 ---
 name: ai-tool-evaluator
-description: Research and evaluate AI tools for the Trusted AI Tools Directory. Performs comprehensive due diligence across 9 evaluation criteria (data privacy, security, ToS, accessibility, pricing, environmental, ethical training, enterprise controls, sector commitment). Gathers evidence from vendor documentation, privacy policies, security certifications, and third-party sources. Generates ratings (0-3 per criterion), calculates weighted scores (0-100), and produces Supabase SQL insert statements. Use when adding a new AI tool to the directory or re-evaluating an existing tool.
+description: Research and evaluate AI tools for the Nonprofit AI Safety Guide. Performs comprehensive due diligence across 9 evaluation criteria (data privacy, security, ToS, accessibility, pricing, environmental, ethical training, enterprise controls, sector commitment). Gathers evidence from vendor documentation, privacy policies, security certifications, and third-party sources. Generates ratings (0-3 per criterion), calculates weighted scores (0-100), and produces Supabase SQL insert statements. Use when adding a new AI tool to the guide or re-evaluating an existing tool.
 ---
 
-# AI Tool Evaluator for Trusted AI Tools Directory
+# AI Tool Evaluator for Nonprofit AI Safety Guide
 
-Research, evaluate, and add new AI tools to the Trusted AI Tools Directory with comprehensive due diligence across all 9 evaluation criteria.
+Research, evaluate, and add new AI tools to the Nonprofit AI Safety Guide with comprehensive due diligence across all 9 evaluation criteria.
 
 ## Required Inputs
 

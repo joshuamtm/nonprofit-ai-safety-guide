@@ -45,12 +45,12 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              AI Tools You Can Trust for Your Nonprofit
+              AI Tools Safety Guide for Nonprofits
             </h1>
             <p className="text-xl text-white/90 mb-8">
-              A searchable directory of AI tools evaluated against a nonprofit-specific rubric for
-              safety, privacy, and responsibility. Make informed decisions about which AI tools
-              are right for your organization.
+              A searchable directory of AI tools evaluated and rated for trust, safety, privacy,
+              and responsibility. Make informed decisions about which AI tools are right for
+              your organization.
             </p>
             <Link to="/directory">
               <Button size="lg" variant="ghost" className="bg-white !text-mtm-navy hover:bg-gray-100">
@@ -81,7 +81,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-mtm-navy mb-4">
-              Why Use the Trusted AI Tools Directory?
+              Why Use This Safety Guide?
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               We do the research so you don't have to. Our evaluations are specifically designed

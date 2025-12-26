@@ -12,13 +12,13 @@ export default function Footer() {
                 <span className="text-white font-bold text-xl">AI</span>
               </div>
               <div>
-                <span className="text-mtm-navy font-semibold text-lg">Trusted AI Tools</span>
-                <span className="text-mtm-soft-blue text-sm block -mt-1">by Meet the Moment</span>
+                <span className="text-mtm-navy font-semibold text-lg">AI Safety Guide</span>
+                <span className="text-mtm-soft-blue text-sm block -mt-1">for Nonprofits</span>
               </div>
             </div>
             <p className="text-gray-600 text-sm max-w-md">
-              A searchable directory of AI tools evaluated against a nonprofit-specific rubric
-              for safety, privacy, and responsibility.
+              AI tools evaluated and rated for trust, safety, privacy, and responsibility.
+              Built for nonprofits by Meet the Moment.
             </p>
           </div>
 
