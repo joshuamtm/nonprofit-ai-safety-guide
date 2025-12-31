@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Shield, Search, FileText, CheckCircle } from 'lucide-react'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
-import NewsletterSignup from '../components/forms/NewsletterSignup'
 import { supabase } from '../lib/supabase'
 
 const FEATURES = [
@@ -182,30 +181,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-xl mx-auto">
-            <NewsletterSignup />
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-mtm-navy text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Can't Find a Tool?</h2>
-          <p className="text-white/80 mb-8 max-w-xl mx-auto">
-            If you're considering an AI tool that's not in our directory, request a review and
-            we'll add it to our evaluation queue.
-          </p>
-          <Link to="/request-review">
-            <Button size="lg" className="bg-mtm-accent hover:bg-mtm-accent/90">
-              Request a Review
-            </Button>
-          </Link>
-        </div>
-      </section>
     </div>
   )
 }

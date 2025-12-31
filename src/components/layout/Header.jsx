@@ -6,7 +6,6 @@ const navigation = [
   { name: 'Directory', href: '/directory' },
   { name: 'Methodology', href: '/methodology' },
   { name: 'Policy Generator', href: '/policy-generator' },
-  { name: 'Request Review', href: '/request-review' },
 ]
 
 export default function Header() {

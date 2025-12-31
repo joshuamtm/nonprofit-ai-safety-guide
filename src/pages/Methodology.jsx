@@ -506,12 +506,12 @@ export default function Methodology() {
                     <strong>Have updated information?</strong> AI tools change their policies frequently.
                     If you notice outdated or incorrect information in our evaluations, please let us know.
                   </p>
-                  <Link
-                    to="/request-review"
+                  <a
+                    href="mailto:info@mtm.now?subject=AI%20Safety%20Guide%20Correction"
                     className="text-sm text-mtm-primary hover:text-mtm-navy font-medium"
                   >
                     Submit a correction →
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>

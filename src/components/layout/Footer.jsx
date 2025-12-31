@@ -41,11 +41,6 @@ export default function Footer() {
                   Policy Generator
                 </Link>
               </li>
-              <li>
-                <Link to="/request-review" className="text-gray-600 hover:text-mtm-primary text-sm">
-                  Request a Review
-                </Link>
-              </li>
             </ul>
           </div>
 

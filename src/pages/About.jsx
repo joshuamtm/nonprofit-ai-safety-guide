@@ -162,14 +162,8 @@ export default function About() {
               from you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/request-review">
-                <Button>
-                  Request a Tool Review
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
               <a href="https://mtm.now" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline">
+                <Button>
                   Contact MTM
                   <ExternalLink className="w-4 h-4 ml-2" />
                 </Button>

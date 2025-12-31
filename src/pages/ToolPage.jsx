@@ -318,11 +318,11 @@ export default function ToolPage() {
               <p className="text-sm text-gray-600 mb-4">
                 Notice something incorrect or outdated in this evaluation?
               </p>
-              <Link to="/request-review">
+              <a href="mailto:info@mtm.now?subject=AI%20Safety%20Guide%20Feedback">
                 <Button variant="outline" className="w-full">
-                  Report Issue
+                  Contact Us
                 </Button>
-              </Link>
+              </a>
             </Card>
           </aside>
         </div>
