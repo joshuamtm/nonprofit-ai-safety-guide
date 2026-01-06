@@ -8,9 +8,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-mtm-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">AI</span>
-              </div>
+              <img
+                src="/mtm-logo-trans.png"
+                alt="Meet the Moment"
+                className="h-10 w-auto"
+              />
               <div>
                 <span className="text-mtm-navy font-semibold text-lg">AI Safety Guide</span>
                 <span className="text-mtm-soft-blue text-sm block -mt-1">for Nonprofits</span>
@@ -68,6 +70,21 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+        </div>
+
+        {/* Together Community */}
+        <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+          <p className="text-gray-600 text-sm">
+            Ready to bring AI into your nonprofit?{' '}
+            <a
+              href="https://mtm.now/mtm-together"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-mtm-primary hover:text-mtm-navy font-medium"
+            >
+              Join Together, our AI learning community
+            </a>.
+          </p>
         </div>
 
         {/* Bottom Bar */}

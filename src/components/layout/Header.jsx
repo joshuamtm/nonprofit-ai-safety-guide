@@ -21,9 +21,11 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-mtm-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">AI</span>
-              </div>
+              <img
+                src="/mtm-logo-trans.png"
+                alt="Meet the Moment"
+                className="h-10 w-auto"
+              />
               <div className="hidden sm:block">
                 <span className="text-mtm-navy font-semibold text-lg">AI Safety Guide</span>
                 <span className="text-mtm-soft-blue text-sm block -mt-1">for Nonprofits</span>
