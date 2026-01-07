@@ -2,7 +2,25 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <footer className="bg-mtm-cream border-t border-gray-200">
+    <>
+      {/* Together Community Band */}
+      <div className="bg-mtm-navy py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-white text-base md:text-lg">
+            Ready to bring AI into your nonprofit?{' '}
+            <a
+              href="https://mtm.now/mtm-together"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-mtm-primary hover:text-mtm-cream font-semibold underline underline-offset-2"
+            >
+              Join Meet the Moment's <em>Together</em> AI learning community for nonprofits
+            </a>.
+          </p>
+        </div>
+      </div>
+
+      <footer className="bg-mtm-cream border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
@@ -72,21 +90,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Together Community */}
-        <div className="mt-8 pt-6 border-t border-gray-200 text-center">
-          <p className="text-gray-600 text-sm">
-            Ready to bring AI into your nonprofit?{' '}
-            <a
-              href="https://mtm.now/mtm-together"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-mtm-primary hover:text-mtm-navy font-medium"
-            >
-              Join Together, our AI learning community
-            </a>.
-          </p>
-        </div>
-
         {/* Bottom Bar */}
         <div className="border-t border-gray-300 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -101,5 +104,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   )
 }
