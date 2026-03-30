@@ -67,10 +67,14 @@ export default function Home() {
               <span className="text-mtm-primary-light">for Nonprofits</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-white/70 mb-10 max-w-2xl leading-relaxed">
+            <p className="text-lg md:text-xl text-white/70 mb-4 max-w-2xl leading-relaxed">
               A searchable directory of AI tools evaluated and rated for trust, safety, privacy,
               and responsibility. Make informed decisions about which tools are right for
               your organization.
+            </p>
+            <p className="text-sm text-white/40 mb-10 max-w-2xl">
+              These ratings evaluate safety, privacy, ethics, and organizational risk &mdash; not features or capabilities.
+              A lower score does not mean a tool is less useful, only that it requires more caution.
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -145,7 +149,10 @@ export default function Home() {
       <section className="py-20 bg-mtm-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <h2 className="font-display text-mtm-navy mb-10 text-center">Understanding Our Ratings</h2>
+            <h2 className="font-display text-mtm-navy mb-4 text-center">Understanding Our Ratings</h2>
+            <p className="text-mtm-soft-blue text-center mb-10 max-w-xl mx-auto text-sm">
+              Our ratings evaluate safety, privacy, ethics, and organizational risk. They do not assess features, capabilities, or usefulness of these platforms.
+            </p>
 
             <div className="space-y-4">
               {[

@@ -2,28 +2,6 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <>
-      {/* Community Band */}
-      <div className="bg-mtm-navy relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(14,141,160,0.4) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(217,122,30,0.3) 0%, transparent 50%)'
-        }} />
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-center relative z-10">
-          <p className="text-white/90 text-base md:text-lg font-display">
-            Ready to bring AI into your nonprofit?{' '}
-            <a
-              href="https://mtm.now/mtm-together"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-mtm-primary-light hover:text-white font-semibold underline underline-offset-4 decoration-mtm-primary-light/40 hover:decoration-white/60 transition-colors"
-            >
-              Join MTM Together
-            </a>
-            {' '}&mdash; our AI learning community for nonprofits.
-          </p>
-        </div>
-      </div>
-
       <footer className="bg-mtm-cream border-t border-mtm-border/40">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -89,6 +67,5 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-    </>
   )
 }

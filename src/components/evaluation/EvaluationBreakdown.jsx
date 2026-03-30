@@ -26,6 +26,7 @@ export default function EvaluationBreakdown({ evaluations = [] }) {
         <h3 className="font-display text-lg font-semibold text-mtm-navy mb-1">Evaluation Breakdown</h3>
         <p className="text-sm text-mtm-soft-blue">
           Detailed scoring across 9 criteria. Data Privacy and Security are weighted 2x.
+          These scores evaluate safety, privacy, and ethics &mdash; not features or capabilities.
         </p>
       </div>
 

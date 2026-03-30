@@ -83,9 +83,12 @@ export default function Directory() {
       <div className="bg-mtm-white border-b border-mtm-border/40">
         <div className="container mx-auto px-4 py-8">
           <h1 className="font-display text-mtm-navy mb-2">AI Tools Directory</h1>
-          <p className="text-mtm-soft-blue mb-6 max-w-2xl">
+          <p className="text-mtm-soft-blue mb-2 max-w-2xl">
             Browse our evaluated AI tools. Each tool is rated based on data privacy, security,
             and responsible AI practices.
+          </p>
+          <p className="text-mtm-soft-blue/60 text-sm mb-6 max-w-2xl">
+            These ratings reflect safety, privacy, and ethics &mdash; not features or capabilities. A lower score means more caution is needed, not that the tool is less useful.
           </p>
 
           <div className="max-w-xl mb-6">
