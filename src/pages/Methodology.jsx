@@ -72,14 +72,14 @@ const CRITERIA = [
     weight: CRITERIA_WEIGHTS.accessibility,
     description: 'The tool\'s accessibility features and compliance.',
     considerations: [
-      'WCAG 2.1 compliance level',
+      'WCAG 2.2 compliance level',
       'Screen reader compatibility',
       'Keyboard navigation support',
       'Alternative text for generated content',
       'Customization options for users with disabilities',
     ],
     scores: [
-      { score: 3, label: 'Excellent: WCAG 2.1 AA compliant or better' },
+      { score: 3, label: 'Excellent: WCAG 2.2 AA compliant or better' },
       { score: 2, label: 'Good: Most accessibility needs met' },
       { score: 1, label: 'Fair: Basic accessibility features' },
       { score: 0, label: 'Poor: Significant accessibility barriers' },
@@ -190,15 +190,18 @@ const CRITERIA = [
 
 export default function Methodology() {
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="min-h-screen">
       {/* Hero */}
-      <div className="bg-mtm-navy text-white py-16">
-        <div className="container mx-auto px-4">
+      <div className="bg-mtm-navy text-white py-16 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(14,141,160,0.5) 0%, transparent 50%)'
+        }} />
+        <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold mb-4">Our Evaluation Methodology</h1>
-            <p className="text-xl text-white/80">
+            <h1 className="font-display text-4xl font-semibold mb-4">Our Evaluation Methodology</h1>
+            <p className="text-xl text-white/70 leading-relaxed">
               We evaluate AI tools using a comprehensive rubric designed specifically for
-              nonprofit organizations. Here's how we determine our ratings.
+              nonprofit organizations. Here&rsquo;s how we determine our ratings.
             </p>
           </div>
         </div>

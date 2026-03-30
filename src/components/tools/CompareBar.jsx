@@ -9,39 +9,39 @@ export default function CompareBar() {
   if (compareList.length === 0) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
-      <div className="container mx-auto px-4 py-3">
+    <div className="fixed bottom-0 left-0 right-0 bg-mtm-white/95 backdrop-blur-md border-t border-mtm-border shadow-mtm-float z-50">
+      <div className="max-w-6xl mx-auto px-4 py-3">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 flex-wrap">
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-mtm-navy">
               Compare ({compareList.length}/3):
             </span>
             {compareList.map((tool) => (
               <div
                 key={tool.id}
-                className="flex items-center gap-2 bg-gray-100 rounded-full pl-3 pr-1 py-1"
+                className="flex items-center gap-2 bg-mtm-surface rounded-full pl-3.5 pr-1.5 py-1 border border-mtm-border/40"
               >
-                <span className="text-sm text-gray-700">{tool.name}</span>
+                <span className="text-sm text-mtm-navy font-medium">{tool.name}</span>
                 <button
                   onClick={() => removeFromCompare(tool.id)}
-                  className="p-1 hover:bg-gray-200 rounded-full transition-colors"
+                  className="p-1 hover:bg-mtm-border/30 rounded-full transition-colors"
                   aria-label={`Remove ${tool.name} from comparison`}
                 >
-                  <X className="w-3 h-3 text-gray-500" />
+                  <X className="w-3 h-3 text-mtm-soft-blue" />
                 </button>
               </div>
             ))}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <button
               onClick={clearCompare}
-              className="text-sm text-gray-500 hover:text-gray-700"
+              className="text-sm text-mtm-soft-blue hover:text-mtm-navy transition-colors"
             >
               Clear
             </button>
             <Link to="/compare">
               <Button size="sm" disabled={compareList.length < 2}>
-                <GitCompare className="w-4 h-4 mr-2" />
+                <GitCompare className="w-4 h-4" />
                 Compare
               </Button>
             </Link>

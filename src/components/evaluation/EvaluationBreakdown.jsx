@@ -3,52 +3,48 @@ import CriteriaScore from './CriteriaScore'
 import { CRITERIA_WEIGHTS, CRITERIA_LABELS, calculateWeightedScore } from '../../lib/utils'
 
 export default function EvaluationBreakdown({ evaluations = [] }) {
-  // Group evaluations by criteria
-  const evaluationMap = evaluations.reduce((acc, evaluation) => {
-    acc[evaluation.criteria_key] = evaluation
+  const evaluationMap = evaluations.reduce((acc, e) => {
+    acc[e.criteria_key] = e
     return acc
   }, {})
 
-  // Calculate total weighted score (returns 0-100)
   const scores = evaluations.reduce((acc, e) => {
     acc[e.criteria_key] = e.rating
     return acc
   }, {})
   const totalScore = calculateWeightedScore(scores)
 
+  const getScoreColor = (s) => {
+    if (s >= 75) return 'bg-rating-recommended'
+    if (s >= 50) return 'bg-rating-caution'
+    return 'bg-rating-not-recommended'
+  }
+
   return (
     <Card>
       <div className="mb-6">
-        <h3 className="text-lg font-semibold text-mtm-navy mb-2">Evaluation Breakdown</h3>
-        <p className="text-sm text-gray-600">
-          Detailed scoring across 9 evaluation criteria. Data Privacy and Security are weighted 2x.
+        <h3 className="font-display text-lg font-semibold text-mtm-navy mb-1">Evaluation Breakdown</h3>
+        <p className="text-sm text-mtm-soft-blue">
+          Detailed scoring across 9 criteria. Data Privacy and Security are weighted 2x.
         </p>
       </div>
 
-      {/* Total Score Summary */}
-      <div className="bg-gray-50 rounded-lg p-4 mb-6">
-        <div className="flex items-center justify-between">
-          <span className="font-medium text-gray-700">Overall Score</span>
-          <span className="text-2xl font-bold text-mtm-navy">
-            {totalScore}/100
+      <div className="bg-mtm-surface rounded-mtm-md p-5 mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <span className="font-medium text-mtm-navy text-sm">Overall Score</span>
+          <span className="score-display text-2xl text-mtm-navy">
+            {totalScore}<span className="text-mtm-border text-lg">/100</span>
           </span>
         </div>
-        <div className="mt-2 h-3 bg-gray-200 rounded-full overflow-hidden">
+        <div className="h-2.5 bg-mtm-border/30 rounded-full overflow-hidden">
           <div
-            className={`h-full rounded-full ${
-              totalScore >= 75
-                ? 'bg-rating-recommended'
-                : totalScore >= 50
-                ? 'bg-rating-caution'
-                : 'bg-rating-not-recommended'
-            }`}
+            className={`h-full rounded-full transition-all duration-700 ${getScoreColor(totalScore)}`}
             style={{ width: `${totalScore}%` }}
           />
         </div>
       </div>
 
-      {/* Individual Criteria */}
-      <div className="divide-y divide-gray-100">
+      <div>
         {Object.entries(CRITERIA_LABELS).map(([key, label]) => {
           const evaluation = evaluationMap[key]
           return (
@@ -64,9 +60,8 @@ export default function EvaluationBreakdown({ evaluations = [] }) {
         })}
       </div>
 
-      {/* Last reviewed timestamp */}
       {evaluations.length > 0 && evaluations[0]?.reviewed_at && (
-        <p className="mt-4 text-xs text-gray-400">
+        <p className="mt-5 text-xs text-mtm-soft-blue/50">
           Last evaluated: {new Date(evaluations[0].reviewed_at).toLocaleDateString()}
         </p>
       )}

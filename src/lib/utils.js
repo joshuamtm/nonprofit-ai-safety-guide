@@ -6,9 +6,8 @@
 //   Security: 2x weight (~18% of total)
 //   Other 7 criteria: 1x weight each (~9% each, 64% total)
 //
-// Formula: (weighted_sum / max_weighted_sum) × 100
-// Max weighted sum: (3×2) + (3×2) + (3×1×7) = 6 + 6 + 21 = 33
-// Score = (weighted_sum / 33) × 100
+// Formula: (weighted_sum / max_weighted_sum) x 100
+// Max weighted sum: (3x2) + (3x2) + (3x1x7) = 6 + 6 + 21 = 33
 
 export const CRITERIA_WEIGHTS = {
   data_privacy: 2,
@@ -22,8 +21,7 @@ export const CRITERIA_WEIGHTS = {
   sector_commitment: 1,
 }
 
-// Calculate max possible weighted score based on weights
-export const MAX_WEIGHTED_SCORE = Object.values(CRITERIA_WEIGHTS).reduce((sum, weight) => sum + (3 * weight), 0) // = 33
+export const MAX_WEIGHTED_SCORE = Object.values(CRITERIA_WEIGHTS).reduce((sum, weight) => sum + (3 * weight), 0)
 
 export const RATING_THRESHOLDS = {
   recommended: { min: 75, max: 100, label: 'Recommended', color: 'rating-recommended' },
@@ -46,10 +44,8 @@ export const calculateOverallScore = (evaluations) => {
     }
   })
 
-  // Require at least half the criteria to show a score
   if (maxPossibleWeightedSum < MAX_WEIGHTED_SCORE / 2) return null
 
-  // Normalize to 0-100 scale based on evaluated criteria
   return Math.round((weightedSum / maxPossibleWeightedSum) * 100)
 }
 
@@ -66,7 +62,6 @@ export const calculateWeightedScore = (scores) => {
     const score = scores[key] ?? 0
     weightedSum += score * CRITERIA_WEIGHTS[key]
   })
-  // Normalize to 0-100 scale
   return Math.round((weightedSum / MAX_WEIGHTED_SCORE) * 100)
 }
 
@@ -74,11 +69,12 @@ export const CATEGORIES = [
   { id: 'writing', label: 'Writing & Content', icon: 'PenLine' },
   { id: 'images', label: 'Image Generation', icon: 'Image' },
   { id: 'productivity', label: 'Productivity', icon: 'Zap' },
-  { id: 'fundraising', label: 'Fundraising & Donor Management', icon: 'Heart' },
+  { id: 'fundraising', label: 'Fundraising & CRM', icon: 'Heart' },
   { id: 'data', label: 'Data Analysis', icon: 'BarChart3' },
   { id: 'communication', label: 'Communication', icon: 'MessageSquare' },
   { id: 'research', label: 'Research', icon: 'Search' },
   { id: 'program', label: 'Program Delivery', icon: 'Users' },
+  { id: 'meeting', label: 'Meeting & Transcription', icon: 'Mic' },
 ]
 
 export const CRITERIA_LABELS = {

@@ -1,32 +1,24 @@
 import { cn } from '../../lib/utils'
 
-export default function Input({
-  label,
-  error,
-  className,
-  ...props
-}) {
+export default function Input({ label, error, className, ...props }) {
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          {label}
-        </label>
+        <label className="block text-sm font-medium text-mtm-navy mb-1.5">{label}</label>
       )}
       <input
         className={cn(
-          'w-full px-3 py-2 border border-gray-300 rounded-mtm-sm',
-          'focus:outline-none focus:ring-2 focus:ring-mtm-primary focus:border-transparent',
-          'placeholder:text-gray-400',
+          'w-full px-4 py-2.5 rounded-mtm-md border text-sm',
+          'bg-mtm-white text-mtm-navy placeholder:text-mtm-soft-blue/60',
           'transition-colors duration-200',
-          error && 'border-red-500 focus:ring-red-500',
+          error
+            ? 'border-rating-not-recommended focus:ring-2 focus:ring-rating-not-recommended/20'
+            : 'border-mtm-border focus:border-mtm-primary focus:ring-2 focus:ring-mtm-primary/10',
           className
         )}
         {...props}
       />
-      {error && (
-        <p className="mt-1 text-sm text-red-500">{error}</p>
-      )}
+      {error && <p className="mt-1.5 text-sm text-rating-not-recommended">{error}</p>}
     </div>
   )
 }

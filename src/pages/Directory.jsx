@@ -15,152 +15,83 @@ export default function Directory() {
   const { compareList } = useCompare()
   const [showCompareHint, setShowCompareHint] = useState(true)
   const [error, setError] = useState(null)
-
-  // Filter state
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategories, setSelectedCategories] = useState([])
   const [selectedTier, setSelectedTier] = useState(null)
   const [showHelp, setShowHelp] = useState(false)
 
-  // Fetch tools from Supabase
   useEffect(() => {
     const abortController = new AbortController()
-
     async function fetchTools() {
-      // Guard check for Supabase client
-      if (!supabase) {
-        setError('Database connection not configured.')
-        setLoading(false)
-        return
-      }
-
+      if (!supabase) { setError('Database connection not configured.'); setLoading(false); return }
       try {
         setLoading(true)
         const { data, error: fetchError } = await supabase
-          .from('tools')
-          .select(`
-            *,
-            tiers:tool_tiers(*)
-          `)
-          .order('name')
-          .abortSignal(abortController.signal)
-
+          .from('tools').select(`*, tiers:tool_tiers(*)`).order('name').abortSignal(abortController.signal)
         if (fetchError) throw fetchError
-
-        // Fetch evaluations for all tiers
         if (data && data.length > 0) {
           const allTierIds = data.flatMap(tool => tool.tiers?.map(t => t.id) || [])
           const { data: evaluations } = await supabase
-            .from('evaluations')
-            .select('*')
-            .in('tool_tier_id', allTierIds)
-            .abortSignal(abortController.signal)
-
-          // Attach evaluations to their respective tiers (immutable)
-          const toolsWithEvaluations = data.map(tool => ({
+            .from('evaluations').select('*').in('tool_tier_id', allTierIds).abortSignal(abortController.signal)
+          const toolsWithEvals = data.map(tool => ({
             ...tool,
             tiers: tool.tiers?.map(tier => ({
               ...tier,
               evaluations: evaluations?.filter(e => e.tool_tier_id === tier.id) || []
             })) || []
           }))
-
-          setTools(toolsWithEvaluations)
+          setTools(toolsWithEvals)
         } else {
           setTools(data || [])
         }
       } catch (err) {
         if (err.name === 'AbortError') return
-        console.error('Error fetching tools:', err)
         setError('Failed to load tools. Please try again.')
-      } finally {
-        setLoading(false)
-      }
+      } finally { setLoading(false) }
     }
-
     fetchTools()
-
     return () => abortController.abort()
   }, [])
 
-  // Filter tools based on current filters
   const filteredTools = useMemo(() => {
     let result = [...tools]
-
-    // Search filter
     if (searchQuery) {
-      const query = searchQuery.toLowerCase()
-      result = result.filter(
-        (tool) =>
-          tool.name?.toLowerCase().includes(query) ||
-          tool.vendor?.toLowerCase().includes(query) ||
-          tool.description?.toLowerCase().includes(query)
-      )
+      const q = searchQuery.toLowerCase()
+      result = result.filter(t => t.name?.toLowerCase().includes(q) || t.vendor?.toLowerCase().includes(q) || t.description?.toLowerCase().includes(q))
     }
-
-    // Category filter
-    if (selectedCategories.length > 0) {
-      result = result.filter((tool) =>
-        selectedCategories.some((cat) => tool.categories?.includes(cat))
-      )
-    }
-
-    // Tier filter
-    if (selectedTier) {
-      result = result.filter((tool) =>
-        tool.tiers?.some((tier) => tier.tier_name === selectedTier)
-      )
-    }
-
+    if (selectedCategories.length > 0) result = result.filter(t => selectedCategories.some(c => t.categories?.includes(c)))
+    if (selectedTier) result = result.filter(t => t.tiers?.some(tier => tier.tier_name === selectedTier))
     return result
   }, [tools, searchQuery, selectedCategories, selectedTier])
 
-  // Count active filters
   const activeFilterCount = (selectedCategories.length > 0 ? 1 : 0) + (selectedTier ? 1 : 0)
-
-  const clearAllFilters = () => {
-    setSearchQuery('')
-    setSelectedCategories([])
-    setSelectedTier(null)
-  }
 
   if (error) {
     return (
       <div className="container mx-auto px-4 py-16">
         <Card className="text-center py-12">
           <p className="text-rating-not-recommended mb-4">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="text-mtm-primary hover:underline"
-          >
-            Try Again
-          </button>
+          <button onClick={() => window.location.reload()} className="text-mtm-primary hover:underline">Try Again</button>
         </Card>
       </div>
     )
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="min-h-screen">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-mtm-white border-b border-mtm-border/40">
         <div className="container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold text-mtm-navy mb-2">AI Tools Directory</h1>
-          <p className="text-gray-600 mb-6">
+          <h1 className="font-display text-mtm-navy mb-2">AI Tools Directory</h1>
+          <p className="text-mtm-soft-blue mb-6 max-w-2xl">
             Browse our evaluated AI tools. Each tool is rated based on data privacy, security,
             and responsible AI practices.
           </p>
 
-          {/* Search Bar - Prominent in header */}
           <div className="max-w-xl mb-6">
-            <SearchBar
-              value={searchQuery}
-              onChange={setSearchQuery}
-              placeholder="Search by tool name, vendor, or description..."
-            />
+            <SearchBar value={searchQuery} onChange={setSearchQuery} placeholder="Search by tool name, vendor, or description..." />
           </div>
 
-          {/* How to use this */}
           <button
             onClick={() => setShowHelp(!showHelp)}
             className="flex items-center gap-2 text-sm text-mtm-primary hover:text-mtm-navy transition-colors"
@@ -171,70 +102,47 @@ export default function Directory() {
           </button>
 
           {showHelp && (
-            <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
-                {/* Rating Guide */}
+            <div className="mt-4 p-5 bg-mtm-surface rounded-mtm-lg border border-mtm-border/40 animate-fade-in">
+              <div className="grid md:grid-cols-3 gap-6 text-sm">
                 <div>
-                  <h3 className="font-semibold text-mtm-navy mb-2">Understanding Ratings</h3>
-                  <ul className="space-y-2 text-gray-600">
+                  <h3 className="font-display font-semibold text-mtm-navy mb-2">Understanding Ratings</h3>
+                  <ul className="space-y-2 text-mtm-soft-blue">
                     <li className="flex items-start gap-2">
-                      <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-recommended flex-shrink-0"></span>
-                      <span><strong>Recommended</strong> (75-100): Safe for most nonprofit use cases with proper policies.</span>
+                      <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-recommended flex-shrink-0" />
+                      <span><strong className="text-mtm-navy">Recommended</strong> (75-100): Safe for most nonprofit use cases.</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-caution flex-shrink-0"></span>
-                      <span><strong>Caution</strong> (50-74): Usable with specific guardrails. Review concerns before adopting.</span>
+                      <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-caution flex-shrink-0" />
+                      <span><strong className="text-mtm-navy">Caution</strong> (50-74): Usable with specific guardrails.</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-not-recommended flex-shrink-0"></span>
-                      <span><strong>Not Recommended</strong> (0-49): Significant concerns for nonprofit use.</span>
+                      <span className="inline-block w-2 h-2 mt-1.5 rounded-full bg-rating-not-recommended flex-shrink-0" />
+                      <span><strong className="text-mtm-navy">Not Recommended</strong> (0-49): Significant concerns.</span>
                     </li>
                   </ul>
                 </div>
-
-                {/* Using Filters */}
                 <div>
-                  <h3 className="font-semibold text-mtm-navy mb-2">Using Filters</h3>
-                  <ul className="space-y-2 text-gray-600">
-                    <li><strong>Tier:</strong> Filter by pricing tier. "Free" shows tools with no-cost options; "Enterprise" shows tools with advanced security controls.</li>
-                    <li><strong>Category:</strong> Find tools for specific tasks like writing, images, or project management.</li>
-                    <li><strong>Search:</strong> Look up tools by name, vendor, or description.</li>
+                  <h3 className="font-display font-semibold text-mtm-navy mb-2">Filters</h3>
+                  <ul className="space-y-2 text-mtm-soft-blue">
+                    <li><strong className="text-mtm-navy">Tier:</strong> Filter by Free, Pro, or Enterprise.</li>
+                    <li><strong className="text-mtm-navy">Category:</strong> Find tools for specific tasks.</li>
+                    <li><strong className="text-mtm-navy">Search:</strong> Look up by name or vendor.</li>
                   </ul>
                 </div>
-
-                {/* Use Cases */}
                 <div>
-                  <h3 className="font-semibold text-mtm-navy mb-2">Common Use Cases</h3>
-                  <ul className="space-y-2 text-gray-600">
-                    <li><strong>Grant writing:</strong> Look for "writing" tools rated Recommended.</li>
-                    <li><strong>Board presentations:</strong> Check "images" + "productivity" categories.</li>
-                    <li><strong>Meeting notes:</strong> Filter by "communication" or search "transcription".</li>
-                    <li><strong>Sensitive data:</strong> Use Enterprise tier filter for strongest privacy controls.</li>
+                  <h3 className="font-display font-semibold text-mtm-navy mb-2">Common Use Cases</h3>
+                  <ul className="space-y-2 text-mtm-soft-blue">
+                    <li><strong className="text-mtm-navy">Grant writing:</strong> "writing" tools rated Recommended.</li>
+                    <li><strong className="text-mtm-navy">Meeting notes:</strong> "communication" category.</li>
+                    <li><strong className="text-mtm-navy">Sensitive data:</strong> Enterprise tier filter.</li>
                   </ul>
-                </div>
-
-                {/* Compare Feature */}
-                <div className="md:col-span-2 lg:col-span-3 pt-4 border-t border-gray-200">
-                  <h3 className="font-semibold text-mtm-navy mb-2">Comparing Tools</h3>
-                  <p className="text-gray-600">
-                    Click the <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-100 rounded text-sm"><svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 3h5v5M8 3H3v5M3 16v5h5M21 16v5h-5M16 21l5-5M3 8l5-5M8 21l-5-5M21 8l-5-5" /></svg> compare</span> icon on any tool card to add it to your comparison (up to 3 tools).
-                    A bar will appear at the bottom of the screen. Click "Compare" to see a side-by-side breakdown of all criteria.
-                  </p>
                 </div>
               </div>
-
-              {/* Methodology Link */}
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <Link
-                  to="/methodology"
-                  className="inline-flex items-center gap-2 text-mtm-primary hover:text-mtm-navy transition-colors font-medium"
-                >
+              <div className="mt-5 pt-4 border-t border-mtm-border/30">
+                <Link to="/methodology" className="inline-flex items-center gap-2 text-mtm-primary hover:text-mtm-navy transition-colors font-medium text-sm">
                   <BookOpen className="w-4 h-4" />
                   Learn about our evaluation methodology
                 </Link>
-                <p className="text-xs text-gray-500 mt-1">
-                  See exactly how we score each tool across 9 weighted criteria including data privacy, security, and more.
-                </p>
               </div>
             </div>
           )}
@@ -243,77 +151,53 @@ export default function Directory() {
 
       <div className="container mx-auto px-4 py-8">
         <div className="lg:flex lg:gap-8">
-          {/* Filters Sidebar */}
           <aside className="lg:w-72 flex-shrink-0 mb-8 lg:mb-0">
             <Card className="sticky top-24">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="font-semibold text-gray-900">Filters</h2>
+                <h2 className="font-display font-semibold text-mtm-navy text-sm">Filters</h2>
                 {activeFilterCount > 0 && (
-                  <button
-                    onClick={clearAllFilters}
-                    className="text-sm text-mtm-primary hover:underline"
-                  >
+                  <button onClick={() => { setSearchQuery(''); setSelectedCategories([]); setSelectedTier(null) }} className="text-xs text-mtm-primary hover:underline">
                     Clear all
                   </button>
                 )}
               </div>
-
               <div className="space-y-6">
                 <TierToggle selected={selectedTier} onChange={setSelectedTier} />
-
-                <CategoryFilter
-                  selected={selectedCategories}
-                  onChange={setSelectedCategories}
-                />
+                <CategoryFilter selected={selectedCategories} onChange={setSelectedCategories} />
               </div>
             </Card>
           </aside>
 
-          {/* Results */}
           <main className="flex-grow">
-            {/* Compare hint banner */}
             {showCompareHint && compareList.length === 0 && !loading && (
-              <div className="mb-4 p-3 bg-mtm-primary/5 border border-mtm-primary/20 rounded-lg flex items-center justify-between">
+              <div className="mb-5 p-3.5 bg-mtm-primary/5 border border-mtm-primary/15 rounded-mtm-md flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-mtm-primary/10 rounded-full flex items-center justify-center">
                     <GitCompare className="w-4 h-4 text-mtm-primary" />
                   </div>
-                  <p className="text-sm text-gray-700">
-                    <strong>Tip:</strong> Click the <GitCompare className="w-3 h-3 inline mx-1" /> icon on tool cards to compare up to 3 tools side-by-side.
+                  <p className="text-sm text-mtm-soft-blue">
+                    <strong className="text-mtm-navy">Tip:</strong> Click the compare icon on tool cards to compare up to 3 tools side-by-side.
                   </p>
                 </div>
-                <button
-                  onClick={() => setShowCompareHint(false)}
-                  className="text-gray-400 hover:text-gray-600 text-sm"
-                >
+                <button onClick={() => setShowCompareHint(false)} className="text-mtm-soft-blue/50 hover:text-mtm-navy text-sm ml-4">
                   Dismiss
                 </button>
               </div>
             )}
 
-            {/* Results header */}
             <div className="flex items-center justify-between mb-6">
-              <p className="text-gray-600">
-                {loading ? (
-                  'Loading...'
-                ) : (
-                  <>
-                    Showing <span className="font-medium">{filteredTools.length}</span>{' '}
-                    {filteredTools.length === 1 ? 'tool' : 'tools'}
-                    {searchQuery && (
-                      <>
-                        {' '}
-                        for "<span className="font-medium">{searchQuery}</span>"
-                      </>
-                    )}
+              <p className="text-mtm-soft-blue text-sm">
+                {loading ? 'Loading...' : (
+                  <>Showing <span className="font-medium text-mtm-navy">{filteredTools.length}</span> {filteredTools.length === 1 ? 'tool' : 'tools'}
+                    {searchQuery && <> for &ldquo;<span className="font-medium text-mtm-navy">{searchQuery}</span>&rdquo;</>}
                   </>
                 )}
               </p>
             </div>
 
             {loading ? (
-              <Card className="flex items-center justify-center py-16">
-                <Loader2 className="w-8 h-8 animate-spin text-mtm-primary" />
+              <Card className="flex items-center justify-center py-20">
+                <Loader2 className="w-7 h-7 animate-spin text-mtm-primary" />
               </Card>
             ) : (
               <ToolGrid tools={filteredTools} selectedTier={selectedTier} />
