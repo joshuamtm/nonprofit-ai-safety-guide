@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { Loader2, ChevronDown, ChevronUp, HelpCircle, BookOpen, GitCompare } from 'lucide-react'
 import SearchBar from '../components/tools/SearchBar'
 import CategoryFilter from '../components/tools/CategoryFilter'
@@ -15,10 +15,23 @@ export default function Directory() {
   const { compareList } = useCompare()
   const [showCompareHint, setShowCompareHint] = useState(true)
   const [error, setError] = useState(null)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategories, setSelectedCategories] = useState([])
-  const [selectedTier, setSelectedTier] = useState(null)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '')
+  const [selectedCategories, setSelectedCategories] = useState(() => {
+    const cat = searchParams.get('category')
+    return cat ? cat.split(',') : []
+  })
+  const [selectedTier, setSelectedTier] = useState(searchParams.get('tier') || null)
   const [showHelp, setShowHelp] = useState(false)
+
+  // Sync filters to URL
+  useEffect(() => {
+    const params = {}
+    if (searchQuery) params.q = searchQuery
+    if (selectedCategories.length > 0) params.category = selectedCategories.join(',')
+    if (selectedTier) params.tier = selectedTier
+    setSearchParams(params, { replace: true })
+  }, [searchQuery, selectedCategories, selectedTier, setSearchParams])
 
   useEffect(() => {
     const abortController = new AbortController()

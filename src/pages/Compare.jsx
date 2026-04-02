@@ -1,10 +1,12 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Check, X, Minus, ExternalLink } from 'lucide-react'
+import { ArrowLeft, Check, X, Minus, ExternalLink, Scale, ShieldCheck } from 'lucide-react'
 import { useCompare } from '../context/CompareContext'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import RatingBadge from '../components/tools/RatingBadge'
 import { calculateOverallScore } from '../lib/utils'
+import { supabase } from '../lib/supabase'
 
 const CRITERIA = [
   { key: 'data_privacy', label: 'Data Privacy', weight: '2x' },
@@ -23,6 +25,24 @@ const getRatingIcon = (r) => r === 3 ? <Check className="w-4 h-4" /> : r === 0 ?
 
 export default function Compare() {
   const { compareList, clearCompare } = useCompare()
+  const [lawsuitCounts, setLawsuitCounts] = useState({})
+
+  useEffect(() => {
+    if (!supabase || compareList.length < 2) return
+    const toolIds = compareList.map(t => t.id)
+    supabase.from('tool_lawsuits').select('tool_id, status').in('tool_id', toolIds).then(({ data }) => {
+      if (!data) return
+      const counts = {}
+      toolIds.forEach(id => { counts[id] = { active: 0, total: 0 } })
+      data.forEach(l => {
+        if (counts[l.tool_id]) {
+          counts[l.tool_id].total++
+          if (l.status === 'active') counts[l.tool_id].active++
+        }
+      })
+      setLawsuitCounts(counts)
+    })
+  }, [compareList])
 
   if (compareList.length < 2) {
     return (
@@ -169,6 +189,21 @@ export default function Compare() {
                       {tool.tiers?.[0]?.requires_contract ? 'Yes' : 'No'}
                     </td>
                   ))}
+                </tr>
+                <tr className="border-b border-mtm-border/20">
+                  <td className="py-3 pr-4 font-medium text-mtm-navy text-sm">Legal Risk</td>
+                  {compareList.map(tool => {
+                    const lc = lawsuitCounts[tool.id]
+                    const hasActive = lc?.active > 0
+                    return (
+                      <td key={tool.id} className="text-center py-3 px-4">
+                        <span className={`inline-flex items-center gap-1.5 text-sm ${hasActive ? 'text-rating-not-recommended' : lc?.total > 0 ? 'text-rating-caution' : 'text-rating-recommended'}`}>
+                          {hasActive ? <Scale className="w-4 h-4" /> : lc?.total > 0 ? <Scale className="w-4 h-4" /> : <ShieldCheck className="w-4 h-4" />}
+                          {hasActive ? `${lc.active} active` : lc?.total > 0 ? `${lc.total} settled` : 'None known'}
+                        </span>
+                      </td>
+                    )
+                  })}
                 </tr>
               </tbody>
             </table>
