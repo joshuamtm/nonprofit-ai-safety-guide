@@ -7,6 +7,7 @@ import Badge from '../components/ui/Badge'
 import RatingBadge from '../components/tools/RatingBadge'
 import EvaluationBreakdown from '../components/evaluation/EvaluationBreakdown'
 import ProxySignals from '../components/evaluation/ProxySignals'
+import LawsuitSection from '../components/evaluation/LawsuitSection'
 import { supabase } from '../lib/supabase'
 import { formatDate, cn } from '../lib/utils'
 
@@ -25,7 +26,7 @@ export default function ToolPage() {
       try {
         setLoading(true)
         const { data: toolData, error: toolError } = await supabase
-          .from('tools').select(`*, tiers:tool_tiers(*), proxy_signals(*)`).eq('id', id).single().abortSignal(ac.signal)
+          .from('tools').select(`*, tiers:tool_tiers(*), proxy_signals(*), lawsuits:tool_lawsuits(*)`).eq('id', id).single().abortSignal(ac.signal)
         if (toolError) throw toolError
         if (toolData?.tiers) {
           const tierIds = toolData.tiers.map(t => t.id)
@@ -155,6 +156,7 @@ export default function ToolPage() {
           </main>
 
           <aside className="lg:w-80 flex-shrink-0 mt-8 lg:mt-0 space-y-6">
+            <LawsuitSection lawsuits={tool.lawsuits || []} />
             <ProxySignals signals={tool.proxy_signals || []} />
             <Card>
               <div className="flex items-start gap-3">
