@@ -74,7 +74,7 @@ export const CATEGORIES = [
   { id: 'communication', label: 'Communication', icon: 'MessageSquare' },
   { id: 'research', label: 'Research', icon: 'Search' },
   { id: 'program', label: 'Program Delivery', icon: 'Users' },
-  { id: 'meeting', label: 'Meeting & Transcription', icon: 'Mic' },
+  { id: 'meeting', label: 'AI Note-Takers', icon: 'Mic' },
 ]
 
 export const CRITERIA_LABELS = {

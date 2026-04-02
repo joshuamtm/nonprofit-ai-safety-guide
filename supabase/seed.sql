@@ -167,7 +167,7 @@ INSERT INTO tool_tiers (id, tool_id, tier_name, overall_rating, rating_notes, da
 
 -- Fathom (NEW - added based on research)
 INSERT INTO tools (id, name, vendor, description, website_url, logo_url, categories) VALUES
-  ('dddddddd-dddd-dddd-dddd-dddddddddddd', 'Fathom', 'Fathom Video Inc.', 'AI meeting notetaker with free unlimited recording and 5 AI summaries/month on free tier. Strongest privacy posture in the meeting AI category: data NOT used for training, SOC 2 Type II certified. Recommended by RoundTable Technology for nonprofits.', 'https://fathom.video', NULL, ARRAY['communication', 'meeting', 'productivity']);
+  ('dddddddd-dddd-dddd-dddd-dddddddddddd', 'Fathom', 'Fathom Video Inc.', 'AI meeting notetaker with free unlimited recording and 5 AI summaries/month on free tier. Strongest privacy posture in the meeting AI category: data NOT used for training, SOC 2 Type II certified. Recommended by RoundTable Technology for nonprofits.', 'https://fathom.video', NULL, ARRAY['meeting', 'communication', 'productivity']);
 
 INSERT INTO tool_tiers (id, tool_id, tier_name, overall_rating, rating_notes, data_training_policy, requires_contract, soc2_certified, fedramp_status) VALUES
   ('dddddddd-dddd-dddd-dddd-ddddddddddde', 'dddddddd-dddd-dddd-dddd-dddddddddddd', 'Free', 'recommended', 'Free tier with unlimited recording and 5 AI summaries/month. Data NOT used for training. SOC 2 Type II certified even on free tier. Exceptional privacy posture.', 'no', FALSE, TRUE, NULL),

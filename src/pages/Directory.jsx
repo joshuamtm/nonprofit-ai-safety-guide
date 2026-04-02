@@ -136,7 +136,7 @@ export default function Directory() {
                   <h3 className="font-display font-semibold text-mtm-navy mb-2">Common Use Cases</h3>
                   <ul className="space-y-2 text-mtm-soft-blue">
                     <li><strong className="text-mtm-navy">Grant writing:</strong> "writing" tools rated Recommended.</li>
-                    <li><strong className="text-mtm-navy">Meeting notes:</strong> "communication" category.</li>
+                    <li><strong className="text-mtm-navy">Meeting notes:</strong> "AI Note-Takers" category.</li>
                     <li><strong className="text-mtm-navy">Sensitive data:</strong> Enterprise tier filter.</li>
                   </ul>
                 </div>
