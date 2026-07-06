@@ -1,7 +1,7 @@
 #!/bin/bash
 # Update Monday.com evaluation notes
 
-API_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2bHplcWh5YnNpaHpzdGVvYXllIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NjU3MjU3OSwiZXhwIjoyMDgyMTQ4NTc5fQ.1T3KzLsDC1ZPbO0PU4z0u6UG9Su3COzgWc9K7PjrZjs"
+API_KEY="${SUPABASE_SERVICE_KEY:?Set SUPABASE_SERVICE_KEY in your environment before running this script}"
 BASE_URL="https://evlzeqhybsihzsteoaye.supabase.co/rest/v1"
 
 patch_rating() {
