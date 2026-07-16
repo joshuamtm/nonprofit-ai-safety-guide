@@ -13,6 +13,9 @@ CREATE TABLE IF NOT EXISTS tools (
   website_url TEXT,
   logo_url TEXT,
   categories TEXT[], -- writing, images, productivity, fundraising, etc.
+  status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'deprecated', 'under_review')),
+  status_reason TEXT, -- why deprecated/under_review (one sentence + source URL)
+  status_changed_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );

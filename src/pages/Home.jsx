@@ -34,7 +34,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchToolCount() {
       if (!supabase) return
-      const { count } = await supabase.from('tools').select('*', { count: 'exact', head: true })
+      const { count } = await supabase.from('tools').select('*', { count: 'exact', head: true }).neq('status', 'deprecated')
       if (count !== null) setToolCount(count)
     }
     fetchToolCount()

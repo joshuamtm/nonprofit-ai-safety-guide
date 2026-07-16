@@ -2,6 +2,21 @@
 
 This guide explains how to research, evaluate, and add new AI tools to the directory.
 
+## Automated Weekly Updates (since 2026-07-16)
+
+Most maintenance is now handled by a scheduled cloud agent — **"Safety Guide — Weekly Auto-Updater"** (routine `trig_01XEJLzwnXWbpZK2fPsfxvsG`, Wednesdays 14:00 UTC, managed at https://claude.ai/code/routines/trig_01XEJLzwnXWbpZK2fPsfxvsG). Each week it:
+
+- Sweeps all vendors for privacy-policy, certification, pricing, and lawsuit changes
+- Fully re-evaluates up to 6 tools per run (changed tools first, then oldest `last_reviewed_at`), writing updates directly to Supabase
+- Processes one pending `review_requests` submission per run
+- Monthly (first Wednesday): proposes up to 2 new tools and runs a deprecation sweep (`tools.status = 'deprecated'` — rows are never deleted)
+- Quarterly: deep-reviews `tool_lawsuits` statuses
+- Slack-DMs a change summary to Joshua and Kim after every run
+
+Guardrails: every rating change requires cited evidence URLs; ambiguous evidence → `under_review` instead of a guess; rating changes are auto-logged to `evaluation_changelog` by a database trigger; the agent never deletes rows.
+
+The manual process below remains valid for ad-hoc additions between runs.
+
 ## Quick Start
 
 To evaluate a new AI tool, provide the following information:

@@ -69,6 +69,14 @@ export default function ToolPage() {
           <Link to="/directory" className="inline-flex items-center text-sm text-mtm-soft-blue hover:text-mtm-primary mb-4 transition-colors">
             <ArrowLeft className="w-4 h-4 mr-1" />Back to Directory
           </Link>
+          {tool.status === 'deprecated' && (
+            <div className="mb-4 rounded-mtm-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+              <strong>No longer listed:</strong> this tool has been retired from the directory
+              {tool.status_reason ? <> &mdash; {tool.status_reason}</> : '.'}
+              {tool.status_changed_at && <span className="text-amber-700"> ({new Date(tool.status_changed_at).toLocaleDateString()})</span>}
+              <span className="block mt-1 text-amber-700">The evaluation below is preserved for reference and is no longer updated.</span>
+            </div>
+          )}
           <div className="flex flex-col md:flex-row md:items-start gap-6">
             <div className="flex-shrink-0">
               {tool.logo_url && !imgError ? (

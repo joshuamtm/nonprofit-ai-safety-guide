@@ -40,7 +40,7 @@ export default function Directory() {
       try {
         setLoading(true)
         const { data, error: fetchError } = await supabase
-          .from('tools').select(`*, tiers:tool_tiers(*)`).order('name').abortSignal(abortController.signal)
+          .from('tools').select(`*, tiers:tool_tiers(*)`).neq('status', 'deprecated').order('name').abortSignal(abortController.signal)
         if (fetchError) throw fetchError
         if (data && data.length > 0) {
           const allTierIds = data.flatMap(tool => tool.tiers?.map(t => t.id) || [])
